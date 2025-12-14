@@ -12,5 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 public class FixtureConfiguration {
+    private Boolean enabled = true;
     private List<String> tags;
 }

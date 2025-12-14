@@ -1,5 +1,3 @@
 app:
-  contract:
-    fixture: none
-  account:
-    fixture: none
+  fixture:
+    enabled: false
