@@ -10,4 +10,9 @@ import lombok.Getter;
 import java.util.Objects;
 
 @Embeddable
-public record AccountId(String name, TradingEnvironment tradingEnvironment) { }
+public record AccountId(String name, TradingEnvironment tradingEnvironment) {
+    public AccountId {
+        Objects.requireNonNull(name, "Account name cannot be null!");
+        Objects.requireNonNull(tradingEnvironment, "Trading environment cannot be null!");
+    }
+}

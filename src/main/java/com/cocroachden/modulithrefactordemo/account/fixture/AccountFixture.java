@@ -2,7 +2,7 @@ package com.cocroachden.modulithrefactordemo.account.fixture;
 
 import com.cocroachden.modulithrefactordemo.account.AccountId;
 import com.cocroachden.modulithrefactordemo.account.OrderId;
-import com.cocroachden.modulithrefactordemo.account.RecordFillForm;
+import com.cocroachden.modulithrefactordemo.account.usecase.RecordFillForm;
 import com.cocroachden.modulithrefactordemo.account.TradeId;
 import com.cocroachden.modulithrefactordemo.account.usecase.RecordFillUseCase;
 import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;

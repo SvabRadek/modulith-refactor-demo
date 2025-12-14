@@ -2,7 +2,6 @@ package com.cocroachden.modulithrefactordemo.contract.usecase;
 
 import com.cocroachden.modulithrefactordemo.contract.Contract;
 import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
-import com.cocroachden.modulithrefactordemo.contract.MergeContractForm;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.InstanceOfAssertFactories;

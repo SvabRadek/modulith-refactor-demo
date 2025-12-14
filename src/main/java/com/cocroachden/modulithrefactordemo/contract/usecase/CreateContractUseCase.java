@@ -2,7 +2,6 @@ package com.cocroachden.modulithrefactordemo.contract.usecase;
 
 import com.cocroachden.modulithrefactordemo.contract.Contract;
 import com.cocroachden.modulithrefactordemo.contract.ContractId;
-import com.cocroachden.modulithrefactordemo.contract.CreateContractForm;
 import com.cocroachden.modulithrefactordemo.contract.event.ContractCreated;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractEntity;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
