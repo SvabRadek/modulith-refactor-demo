@@ -1,13 +1,13 @@
 package com.cocroachden.modulithrefactordemo.account.usecase;
 
-import com.cocroachden.modulithrefactordemo.account.FillId;
-import com.cocroachden.modulithrefactordemo.account.RecordedFill;
+import com.cocroachden.modulithrefactordemo.account.domain.FillId;
+import com.cocroachden.modulithrefactordemo.account.domain.RecordedFill;
 import com.cocroachden.modulithrefactordemo.account.event.FillRecorded;
 import com.cocroachden.modulithrefactordemo.account.repository.AccountRepository;
 import com.cocroachden.modulithrefactordemo.account.repository.FillEntity;
 import com.cocroachden.modulithrefactordemo.account.repository.FillRepository;
 import com.cocroachden.modulithrefactordemo.account.utils.AccountUtils;
-import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
+import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.query.ContractQuery;
 import com.cocroachden.modulithrefactordemo.infrastructure.stereotype.UseCase;
 import lombok.AllArgsConstructor;

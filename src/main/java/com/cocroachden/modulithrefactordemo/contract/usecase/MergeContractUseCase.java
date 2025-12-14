@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.contract.usecase;
 
-import com.cocroachden.modulithrefactordemo.contract.*;
+import com.cocroachden.modulithrefactordemo.contract.domain.Contract;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
 import com.cocroachden.modulithrefactordemo.infrastructure.stereotype.UseCase;
 import lombok.AllArgsConstructor;

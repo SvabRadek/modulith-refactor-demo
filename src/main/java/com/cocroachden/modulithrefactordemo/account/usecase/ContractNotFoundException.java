@@ -1,8 +1,8 @@
 package com.cocroachden.modulithrefactordemo.account.usecase;
 
-import com.cocroachden.modulithrefactordemo.account.OrderId;
-import com.cocroachden.modulithrefactordemo.account.TradeId;
-import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;
+import com.cocroachden.modulithrefactordemo.account.domain.OrderId;
+import com.cocroachden.modulithrefactordemo.account.domain.TradeId;
+import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
 
 import java.util.List;
 

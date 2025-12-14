@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.contract.event;
 
-import com.cocroachden.modulithrefactordemo.contract.Contract;
+import com.cocroachden.modulithrefactordemo.contract.domain.Contract;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

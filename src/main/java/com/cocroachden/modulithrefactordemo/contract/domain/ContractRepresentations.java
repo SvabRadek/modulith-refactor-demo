@@ -1,7 +1,6 @@
-package com.cocroachden.modulithrefactordemo.contract;
+package com.cocroachden.modulithrefactordemo.contract.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 @AllArgsConstructor
-@Getter
 public class ContractRepresentations {
     private Map<String, String> representations;
 
@@ -33,6 +31,10 @@ public class ContractRepresentations {
         return this.representations.entrySet()
                 .stream()
                 .map(e -> new ContractRepresentation(e.getKey(), e.getValue()));
+    }
+
+    public Map<String, String> getRaw() {
+        return representations;
     }
 
     public List<ContractRepresentation> toList() {
@@ -60,6 +62,9 @@ public class ContractRepresentations {
     }
 
     public List<ContractRepresentation> getRepresentationsByUsage() {
-        return representations.entrySet().stream().map(e -> new ContractRepresentation(e.getKey(), e.getValue())).toList();
+        return representations.entrySet()
+                .stream()
+                .map(e -> new ContractRepresentation(e.getKey(), e.getValue()))
+                .toList();
     }
 }

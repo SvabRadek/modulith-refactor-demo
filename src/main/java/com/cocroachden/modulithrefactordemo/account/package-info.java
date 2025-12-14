@@ -1,6 +1,6 @@
 @ApplicationModule(
         allowedDependencies = {
-                "contract",
+                "contract :: domain",
                 "contract :: query" ,
                 "infrastructure"
         }

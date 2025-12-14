@@ -1,8 +1,8 @@
 package com.cocroachden.modulithrefactordemo.contract.repository;
 
-import com.cocroachden.modulithrefactordemo.contract.ContractId;
-import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;
-import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
+import com.cocroachden.modulithrefactordemo.contract.domain.ContractId;
+import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
+import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,7 +31,10 @@ public class ContractEntity extends AbstractEntity<ContractId> {
             name = "contract_representation",
             joinColumns = @JoinColumn(name = "contract_id"),
             indexes = @Index(name = "idx_format_repre", columnList = "format, representation"),
-            uniqueConstraints = @UniqueConstraint(columnNames = {"format", "representation"})
+            uniqueConstraints = {
+                    @UniqueConstraint(columnNames = {"format", "representation"}),
+                    @UniqueConstraint(columnNames = {"contract_id", "format"})
+            }
     )
     @MapKeyColumn(name = "format")
     @Column(name = "representation")
@@ -43,7 +46,7 @@ public class ContractEntity extends AbstractEntity<ContractId> {
     }
 
     public void setRepresentations(ContractRepresentations representations) {
-        this.representations = representations.getRepresentations();
+        this.representations = representations.getRaw();
     }
 
     public void setRepresentations(Map<String, String> representations) {

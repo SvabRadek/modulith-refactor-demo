@@ -1,7 +1,7 @@
 package com.cocroachden.modulithrefactordemo.account.usecase;
 
-import com.cocroachden.modulithrefactordemo.account.OrderId;
-import com.cocroachden.modulithrefactordemo.account.TradeId;
+import com.cocroachden.modulithrefactordemo.account.domain.OrderId;
+import com.cocroachden.modulithrefactordemo.account.domain.TradeId;
 
 public class FillAlreadyExistsException extends RuntimeException {
     public FillAlreadyExistsException(TradeId tradeId, OrderId orderId) {

@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.account.usecase;
 
-import com.cocroachden.modulithrefactordemo.account.AccountId;
+import com.cocroachden.modulithrefactordemo.account.domain.AccountId;
 
 public class AccountDoesNotExistsException extends RuntimeException {
     public AccountDoesNotExistsException(AccountId accountId) {

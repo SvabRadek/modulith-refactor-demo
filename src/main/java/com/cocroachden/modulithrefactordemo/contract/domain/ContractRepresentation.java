@@ -1,4 +1,4 @@
-package com.cocroachden.modulithrefactordemo.contract;
+package com.cocroachden.modulithrefactordemo.contract.domain;
 
 public record ContractRepresentation(
         String format,

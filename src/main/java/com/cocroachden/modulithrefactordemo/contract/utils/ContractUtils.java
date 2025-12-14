@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.contract.utils;
 
-import com.cocroachden.modulithrefactordemo.contract.Contract;
+import com.cocroachden.modulithrefactordemo.contract.domain.Contract;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractEntity;
 
 public class ContractUtils {

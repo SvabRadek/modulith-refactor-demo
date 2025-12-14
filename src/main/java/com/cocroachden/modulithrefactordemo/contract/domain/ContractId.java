@@ -1,4 +1,4 @@
-package com.cocroachden.modulithrefactordemo.contract;
+package com.cocroachden.modulithrefactordemo.contract.domain;
 
 import jakarta.persistence.Embeddable;
 

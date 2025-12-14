@@ -1,6 +1,6 @@
-package com.cocroachden.modulithrefactordemo.account;
+package com.cocroachden.modulithrefactordemo.account.domain;
 
-import com.cocroachden.modulithrefactordemo.contract.ContractId;
+import com.cocroachden.modulithrefactordemo.contract.domain.ContractId;
 
 import java.time.Instant;
 

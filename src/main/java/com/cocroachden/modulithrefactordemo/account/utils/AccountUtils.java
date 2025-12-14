@@ -1,7 +1,7 @@
 package com.cocroachden.modulithrefactordemo.account.utils;
 
-import com.cocroachden.modulithrefactordemo.account.Account;
-import com.cocroachden.modulithrefactordemo.account.RecordedFill;
+import com.cocroachden.modulithrefactordemo.account.domain.Account;
+import com.cocroachden.modulithrefactordemo.account.domain.RecordedFill;
 import com.cocroachden.modulithrefactordemo.account.repository.AccountEntity;
 import com.cocroachden.modulithrefactordemo.account.repository.FillEntity;
 

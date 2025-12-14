@@ -1,7 +1,7 @@
 package com.cocroachden.modulithrefactordemo.contract.usecase;
 
-import com.cocroachden.modulithrefactordemo.contract.Contract;
-import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
+import com.cocroachden.modulithrefactordemo.contract.domain.Contract;
+import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.InstanceOfAssertFactories;
@@ -29,10 +29,8 @@ class MergeContractUseCaseTest {
         var form2 = new MergeContractForm(new ContractRepresentations(Map.of("format", "value", "format2", "value2")));
         var mergedContract = mergeContractUseCase.handle(form2);
 
-        Assertions.assertThat(mergedContract).extracting(Contract::representations)
-                .extracting(ContractRepresentations::getRepresentations)
-                .asInstanceOf(InstanceOfAssertFactories.MAP)
-                .hasSize(2);
+        Assertions.assertThat(mergedContract.representations().getRaw())
+                .containsKeys("format", "format2");
 
     }
 

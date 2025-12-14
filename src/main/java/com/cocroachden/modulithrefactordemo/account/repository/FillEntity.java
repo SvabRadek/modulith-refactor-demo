@@ -1,9 +1,9 @@
 package com.cocroachden.modulithrefactordemo.account.repository;
 
-import com.cocroachden.modulithrefactordemo.account.FillId;
-import com.cocroachden.modulithrefactordemo.account.OrderId;
-import com.cocroachden.modulithrefactordemo.account.TradeId;
-import com.cocroachden.modulithrefactordemo.contract.ContractId;
+import com.cocroachden.modulithrefactordemo.account.domain.FillId;
+import com.cocroachden.modulithrefactordemo.account.domain.OrderId;
+import com.cocroachden.modulithrefactordemo.account.domain.TradeId;
+import com.cocroachden.modulithrefactordemo.contract.domain.ContractId;
 import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
