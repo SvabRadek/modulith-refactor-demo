@@ -1,5 +1,6 @@
 package com.cocroachden.modulithrefactordemo.infrastructure.repository;
 
+import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PostLoad;
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.Transient;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Persistable;
 
 import java.util.Objects;
 
+@MappedSuperclass
 public abstract class AbstractEntity<ID> implements Persistable<ID> {
 
     @Transient

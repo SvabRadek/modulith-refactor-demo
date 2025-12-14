@@ -1,10 +1,13 @@
 package com.cocroachden.modulithrefactordemo.contract.usecase;
 
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
+import com.cocroachden.modulithrefactordemo.contract.event.ContractDeleted;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.modulith.test.ApplicationModuleTest;
+import org.springframework.modulith.test.Scenario;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Map;
@@ -25,16 +28,20 @@ class DeleteContractUseCaseTest {
     @Autowired
     private ContractRepository contractRepository;
 
+    @BeforeEach
+    public void setup() {
+        contractRepository.deleteAll();
+    }
+
     @Test
-    void itCanDeleteContract() {
+    void itCanDeleteContract(Scenario scenario) {
         var form = new CreateContractForm(new ContractRepresentations(Map.of("symbol", "AAPL")));
         var contract = createContractUseCase.handle(form);
-
-        assertThat(contractRepository.findById(contract.id())).isPresent();
-
-        deleteContractUseCase.handle(contract.id());
-
-        assertThat(contractRepository.findById(contract.id())).isEmpty();
+        scenario.stimulate(() -> deleteContractUseCase.handle(contract.id()))
+                .forEventOfType(ContractDeleted.class)
+                .toArriveAndVerify(event -> {
+                    assertThat(contractRepository.existsById(contract.id())).isFalse();
+                });
     }
 
     @Test
@@ -60,7 +67,7 @@ class DeleteContractUseCaseTest {
 
         deleteContractUseCase.handle(contract1.id());
         deleteContractUseCase.handle(contract2.id());
-
+        contractRepository.flush();
         assertThat(contractRepository.findById(contract1.id())).isEmpty();
         assertThat(contractRepository.findById(contract2.id())).isEmpty();
     }

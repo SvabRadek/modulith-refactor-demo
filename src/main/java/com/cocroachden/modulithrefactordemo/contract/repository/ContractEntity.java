@@ -46,7 +46,7 @@ public class ContractEntity extends AbstractEntity<ContractId> {
     }
 
     public void setRepresentations(ContractRepresentations representations) {
-        this.representations = representations.getRaw();
+        this.representations = new HashMap<>(representations.getRaw());
     }
 
     public void setRepresentations(Map<String, String> representations) {

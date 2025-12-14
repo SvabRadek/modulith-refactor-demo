@@ -10,6 +10,8 @@ import com.cocroachden.modulithrefactordemo.infrastructure.stereotype.UseCase;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @UseCase
 @AllArgsConstructor
@@ -19,6 +21,7 @@ public class CreateContractUseCase {
     private final ContractRepository contractRepository;
     private final ApplicationEventPublisher publisher;
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Contract handle(CreateContractForm form) {
         var contractEntity = new ContractEntity(ContractId.random());
         contractEntity.setRepresentations(form.representations());
