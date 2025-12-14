@@ -1,0 +1,16 @@
+app:
+  fixture:
+    tags: [ "contract/basic", "account/basic" ]
+
+spring:
+  application:
+    name: redis-demo
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
