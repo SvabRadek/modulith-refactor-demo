@@ -16,6 +16,9 @@ public class GenerateFixtureUseCase {
 
     @EventListener(ApplicationStartedEvent.class)
     public void generate() {
+        if (!fixtureConfiguration.getEnabled()) {
+            return;
+        }
         fixtureConfiguration.getTags()
                 .forEach(t -> fixtures.stream()
                         .filter(f -> f.getTag().equals(t)).findAny()
