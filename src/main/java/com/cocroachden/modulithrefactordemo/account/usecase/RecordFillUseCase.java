@@ -26,7 +26,7 @@ public class RecordFillUseCase {
     private final ApplicationEventPublisher publisher;
     private final CreateAccountUseCase createAccountUseCase;
 
-    public RecordedFill handle(RecordFillForm form) {
+    public RecordedFill handle(RecordFillForm form) throws FillAlreadyExistsException, ContractNotFoundException {
         if (fillRepository.existsByTradeIdAndOrderId(form.tradeId(), form.orderId())) {
             throw new FillAlreadyExistsException(form.tradeId(), form.orderId());
         }

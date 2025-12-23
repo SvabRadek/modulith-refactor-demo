@@ -8,8 +8,8 @@ public record RecordedFill(
         FillId id,
         AccountId accountId,
         ContractId contractId,
-        Long price,
-        Long qty,
+        Price price,
+        Qty qty,
         Instant recordedAt
 ) {
 }

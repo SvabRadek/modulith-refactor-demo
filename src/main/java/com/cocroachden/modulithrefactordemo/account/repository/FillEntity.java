@@ -1,8 +1,6 @@
 package com.cocroachden.modulithrefactordemo.account.repository;
 
-import com.cocroachden.modulithrefactordemo.account.domain.FillId;
-import com.cocroachden.modulithrefactordemo.account.domain.OrderId;
-import com.cocroachden.modulithrefactordemo.account.domain.TradeId;
+import com.cocroachden.modulithrefactordemo.account.domain.*;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractId;
 import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntity;
 import jakarta.persistence.*;
@@ -47,9 +45,11 @@ public class FillEntity extends AbstractEntity<FillId> {
     @AttributeOverride(name = "id", column = @Column(name = "contract_id"))
     private ContractId contractId;
 
-    private Long price;
+    @Convert(converter = PriceAttributeConverter.class)
+    private Price price;
 
-    private Long qty;
+    @Convert(converter = QtyAttributeConverter.class)
+    private Qty qty;
 
     private Instant recordedAt;
 }

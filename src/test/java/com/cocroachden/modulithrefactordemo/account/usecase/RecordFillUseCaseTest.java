@@ -1,8 +1,6 @@
 package com.cocroachden.modulithrefactordemo.account.usecase;
 
-import com.cocroachden.modulithrefactordemo.account.domain.AccountId;
-import com.cocroachden.modulithrefactordemo.account.domain.OrderId;
-import com.cocroachden.modulithrefactordemo.account.domain.TradeId;
+import com.cocroachden.modulithrefactordemo.account.domain.*;
 import com.cocroachden.modulithrefactordemo.account.event.FillRecorded;
 import com.cocroachden.modulithrefactordemo.account.repository.AccountRepository;
 import com.cocroachden.modulithrefactordemo.account.repository.FillRepository;
@@ -71,8 +69,8 @@ class RecordFillUseCaseTest {
                 OrderId.random(),
                 accountId,
                 List.of(new ContractRepresentation("TT", "AAPL")),
-                15000L,
-                10L
+                new Price(15000L),
+                new Qty(10L)
         );
 
         scenario.stimulate(() -> recordFillUseCase.handle(form))
@@ -82,8 +80,8 @@ class RecordFillUseCaseTest {
                     assertThat(event.fill().id()).isNotNull();
                     assertThat(event.fill().accountId()).isEqualTo(accountId);
                     assertThat(event.fill().contractId()).isEqualTo(contract.id());
-                    assertThat(event.fill().price()).isEqualTo(15000L);
-                    assertThat(event.fill().qty()).isEqualTo(10L);
+                    assertThat(event.fill().price()).isEqualTo(new Price(15000L));
+                    assertThat(event.fill().qty()).isEqualTo(new Qty(10L));
                 });
     }
 
@@ -91,7 +89,7 @@ class RecordFillUseCaseTest {
     void itCreatesAccountAutomaticallyIfNotExists() {
         var accountId = new AccountId("AutoCreatedAccount", TradingEnvironment.UAT);
 
-        var contract = createContractUseCase.handle(new CreateContractForm(
+        createContractUseCase.handle(new CreateContractForm(
                 new ContractRepresentations(Map.of("symbol", "TSLA"))
         ));
 
@@ -100,8 +98,8 @@ class RecordFillUseCaseTest {
                 OrderId.random(),
                 accountId,
                 List.of(new ContractRepresentation("symbol", "TSLA")),
-                20000L,
-                5L
+                new Price(20000L),
+                new Qty(5L)
         );
 
         var recordedFill = recordFillUseCase.handle(form);
@@ -120,8 +118,8 @@ class RecordFillUseCaseTest {
                 OrderId.random(),
                 accountId,
                 List.of(new ContractRepresentation("symbol", "NONEXISTENT")),
-                10000L,
-                1L
+                new Price(10000L),
+                new Qty(1L)
         );
 
         assertThatThrownBy(() -> recordFillUseCase.handle(form))
@@ -145,8 +143,8 @@ class RecordFillUseCaseTest {
                 orderId,
                 accountId,
                 List.of(new ContractRepresentation("symbol", "MSFT")),
-                30000L,
-                20L
+                new Price(30000L),
+                new Qty(20L)
         );
 
         recordFillUseCase.handle(form);

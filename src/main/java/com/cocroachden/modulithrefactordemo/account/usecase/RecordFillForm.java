@@ -1,8 +1,6 @@
 package com.cocroachden.modulithrefactordemo.account.usecase;
 
-import com.cocroachden.modulithrefactordemo.account.domain.AccountId;
-import com.cocroachden.modulithrefactordemo.account.domain.OrderId;
-import com.cocroachden.modulithrefactordemo.account.domain.TradeId;
+import com.cocroachden.modulithrefactordemo.account.domain.*;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
 
 import java.util.List;
@@ -13,8 +11,8 @@ public record RecordFillForm(
         OrderId orderId,
         AccountId accountId,
         List<ContractRepresentation> representations,
-        Long price,
-        Long qty
+        Price price,
+        Qty qty
 ) {
     public RecordFillForm {
         Objects.requireNonNull(tradeId, "TradeId cannot be null!");

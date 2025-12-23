@@ -17,10 +17,10 @@ public class CreateAccountUseCase {
     private final AccountRepository accountRepository;
     private final ApplicationEventPublisher publisher;
 
-    public Account handle(CreateAccountForm form) {
+    public Account handle(CreateAccountForm form) throws AccountAlreadyExists {
         var accountId = new AccountId(form.name(), form.tradingEnvironment());
         if (accountRepository.existsById(accountId)) {
-            throw new RuntimeException("Account already exists");
+            throw new AccountAlreadyExists(form.name(), form.tradingEnvironment());
         }
         var account = new AccountEntity(accountId);
         var saved = AccountUtils.map(accountRepository.save(account));

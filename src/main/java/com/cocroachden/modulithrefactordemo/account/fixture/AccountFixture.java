@@ -1,9 +1,7 @@
 package com.cocroachden.modulithrefactordemo.account.fixture;
 
-import com.cocroachden.modulithrefactordemo.account.domain.AccountId;
-import com.cocroachden.modulithrefactordemo.account.domain.OrderId;
+import com.cocroachden.modulithrefactordemo.account.domain.*;
 import com.cocroachden.modulithrefactordemo.account.usecase.RecordFillForm;
-import com.cocroachden.modulithrefactordemo.account.domain.TradeId;
 import com.cocroachden.modulithrefactordemo.account.usecase.RecordFillUseCase;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
@@ -47,8 +45,8 @@ public class AccountFixture implements Fixture {
                                     new ContractRepresentation("B", "B" + i),
                                     new ContractRepresentation("C", "C" + i)
                             ),
-                            1L,
-                            1L
+                            new Price(1L),
+                            new Qty(1L)
                     )
             );
         }
