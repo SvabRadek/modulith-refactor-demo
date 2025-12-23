@@ -19,10 +19,10 @@ public class EditContractUseCase {
     private final ContractRepository contractRepository;
     private final ApplicationEventPublisher publisher;
 
-    public Contract handle(EditContractForm form) {
+    public Contract handle(EditContractForm form) throws ContractNotFound {
         var contract = contractRepository.findById(form.id());
         if (contract.isEmpty()) {
-            throw new RuntimeException("Contract not found");
+            throw new ContractNotFound(form.id());
         }
         contract.get().setRepresentations(form.representations());
         var saved = contractRepository.save(contract.get());
