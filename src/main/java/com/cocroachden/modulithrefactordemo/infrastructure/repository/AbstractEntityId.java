@@ -39,11 +39,6 @@ public abstract class AbstractEntityId<T extends Serializable> implements Serial
     }
 
     @Override
-    public String asString() {
-        return this.id.toString();
-    }
-
-    @Override
     public String toString() {
         return "%s[id=%s]".formatted(getClass().getSimpleName(), getId().toString());
     }
