@@ -6,25 +6,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface ContractRepository extends JpaRepository<ContractEntity, ContractId> {
 
     @Transactional(readOnly = true)
-    @Query("select c from ContractEntity c join c.representations r where key(r) = :format and value(r) = :value")
+    @Query("select c from ContractEntity c join c.representations cr where cr.format = :format and cr.representation = :value")
     Optional<ContractEntity> findByRepresentation(String format, String value);
 
-//    Optional<ContractEntity> findById(ContractId id);
-
+    @Query("select c from ContractEntity c join c.representations cr where cr in :representations")
     @Transactional(readOnly = true)
-    default Optional<ContractEntity> findByRepresentations(ContractRepresentations representations) {
-        for (var representation : representations.getRepresentationsByUsage()) {
-            var found = this.findByRepresentation(representation.format(), representation.value());
-            if (found.isPresent()) {
-                return found;
-            }
-        }
-        return Optional.empty();
-    }
-
+    Optional<ContractEntity> findByRepresentations(Set<ContractRepresentationEntity> representations);
 }

@@ -2,6 +2,7 @@ package com.cocroachden.modulithrefactordemo.contract.usecase;
 
 import com.cocroachden.modulithrefactordemo.contract.domain.Contract;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
+import com.cocroachden.modulithrefactordemo.contract.utils.ContractUtils;
 import com.cocroachden.modulithrefactordemo.infrastructure.stereotype.UseCase;
 import lombok.AllArgsConstructor;
 
@@ -14,7 +15,9 @@ public class MergeContractUseCase {
     private final EditContractUseCase editContractUseCase;
 
     public Contract handle(MergeContractForm form) {
-        var foundContract = contractRepository.findByRepresentations(form.representations());
+        var foundContract = contractRepository.findByRepresentations(
+                ContractUtils.map(form.representations())
+        );
         if (foundContract.isPresent()) {
             var representations = foundContract.get()
                     .getRepresentations()

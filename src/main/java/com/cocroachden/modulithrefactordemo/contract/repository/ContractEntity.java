@@ -1,15 +1,15 @@
 package com.cocroachden.modulithrefactordemo.contract.repository;
 
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractId;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
+import com.cocroachden.modulithrefactordemo.contract.utils.ContractUtils;
 import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "contract")
@@ -36,24 +36,18 @@ public class ContractEntity extends AbstractEntity<ContractId> {
                     @UniqueConstraint(columnNames = {"contract_id", "format"})
             }
     )
-    @MapKeyColumn(name = "format")
-    @Column(name = "representation")
-    private Map<String, String> representations = new HashMap<>();
-
-    public void setRepresentations(List<ContractRepresentation> representations) {
-        this.representations = new HashMap<>();
-        representations.forEach(r -> this.representations.put(r.format(), r.value()));
-    }
+    private Set<ContractRepresentationEntity> representations = new HashSet<>();
 
     public void setRepresentations(ContractRepresentations representations) {
-        this.representations = new HashMap<>(representations.getRaw());
-    }
-
-    public void setRepresentations(Map<String, String> representations) {
-        this.representations = representations;
+        this.representations.clear();
+        this.representations.addAll(ContractUtils.map(representations));
     }
 
     public ContractRepresentations getRepresentations() {
-        return new ContractRepresentations(representations);
+        return new ContractRepresentations(
+                representations.stream()
+                        .map(ContractUtils::map)
+                        .toList()
+        );
     }
 }
