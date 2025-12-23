@@ -58,7 +58,7 @@ class CreateAccountUseCaseTest {
         createAccountUseCase.handle(form);
         assertThatThrownBy(() -> createAccountUseCase.handle(form))
                 .isInstanceOf(RuntimeException.class)
-                .hasMessageContaining("Account already exists");
+                .hasMessageContaining("Account [DuplicateAccount:LIVE] already exists!");
     }
 
     @Test

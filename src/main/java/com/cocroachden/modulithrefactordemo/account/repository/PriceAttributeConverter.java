@@ -4,7 +4,7 @@ import com.cocroachden.modulithrefactordemo.account.domain.Price;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
-@Converter(autoApply = true)
+@Converter
 public class PriceAttributeConverter implements AttributeConverter<Price, Long> {
 
     @Override
