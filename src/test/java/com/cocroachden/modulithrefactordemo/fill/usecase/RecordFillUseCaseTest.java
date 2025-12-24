@@ -139,8 +139,7 @@ class RecordFillUseCaseTest {
     void itThrowsExceptionWhenDuplicateFill() {
         var accountId = new AccountId("TestAccount3", TradingEnvironment.LIVE);
         createAccountUseCase.handle(new CreateAccountForm("TestAccount3", TradingEnvironment.LIVE));
-
-        var contract = createContractUseCase.handle(new CreateContractForm(
+        createContractUseCase.handle(new CreateContractForm(
                 new ContractRepresentations(Map.of("symbol", "MSFT"))
         ));
 
