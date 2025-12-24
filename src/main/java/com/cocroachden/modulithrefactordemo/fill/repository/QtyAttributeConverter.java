@@ -4,7 +4,7 @@ import com.cocroachden.modulithrefactordemo.fill.domain.Qty;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
-@Converter
+@Converter(autoApply = true)
 public class QtyAttributeConverter implements AttributeConverter<Qty, Long> {
 
     @Override

@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.time.Instant;
 
+@SuppressWarnings("JpaAttributeTypeInspection")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -39,14 +40,13 @@ public class FillEntity extends AbstractEntity<FillId> {
     @AttributeOverride(name = "id", column = @Column(name = "order_id"))
     private OrderId orderId;
 
-    @Embedded
     @AttributeOverride(name = "id", column = @Column(name = "contract_id"))
     private ContractId contractId;
 
-    @Convert(converter = PriceAttributeConverter.class)
+    @AttributeOverride(name = "value", column = @Column(name = "price"))
     private Price price;
 
-    @Convert(converter = QtyAttributeConverter.class)
+    @AttributeOverride(name = "value", column = @Column(name = "qty"))
     private Qty qty;
 
     private Instant recordedAt;
