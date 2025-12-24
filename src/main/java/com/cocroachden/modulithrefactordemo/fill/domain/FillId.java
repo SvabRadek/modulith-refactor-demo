@@ -1,4 +1,4 @@
-package com.cocroachden.modulithrefactordemo.account.domain;
+package com.cocroachden.modulithrefactordemo.fill.domain;
 
 import java.util.Objects;
 import java.util.UUID;

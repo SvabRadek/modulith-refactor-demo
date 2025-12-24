@@ -1,9 +1,16 @@
-package com.cocroachden.modulithrefactordemo.account.usecase;
+package com.cocroachden.modulithrefactordemo.fill.usecase;
 
 import com.cocroachden.modulithrefactordemo.account.domain.*;
-import com.cocroachden.modulithrefactordemo.account.event.FillRecorded;
+import com.cocroachden.modulithrefactordemo.account.usecase.CreateAccountForm;
+import com.cocroachden.modulithrefactordemo.account.usecase.CreateAccountUseCase;
+import com.cocroachden.modulithrefactordemo.contract.event.ContractCreated;
+import com.cocroachden.modulithrefactordemo.fill.event.FillRecorded;
 import com.cocroachden.modulithrefactordemo.account.repository.AccountRepository;
-import com.cocroachden.modulithrefactordemo.account.repository.FillRepository;
+import com.cocroachden.modulithrefactordemo.fill.domain.OrderId;
+import com.cocroachden.modulithrefactordemo.fill.domain.Price;
+import com.cocroachden.modulithrefactordemo.fill.domain.Qty;
+import com.cocroachden.modulithrefactordemo.fill.domain.TradeId;
+import com.cocroachden.modulithrefactordemo.fill.repository.FillRepository;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
@@ -109,7 +116,7 @@ class RecordFillUseCaseTest {
     }
 
     @Test
-    void itThrowsExceptionWhenContractNotFound() {
+    void itCreatesNewWhenContractNotFound(Scenario scenario) {
         var accountId = new AccountId("TestAccount2", TradingEnvironment.SIM);
         createAccountUseCase.handle(new CreateAccountForm("TestAccount2", TradingEnvironment.SIM));
 
@@ -121,9 +128,11 @@ class RecordFillUseCaseTest {
                 new Price(10000L),
                 new Qty(1L)
         );
-
-        assertThatThrownBy(() -> recordFillUseCase.handle(form))
-                .isInstanceOf(ContractNotFoundException.class);
+        scenario.stimulate(() -> recordFillUseCase.handle(form))
+                .forEventOfType(ContractCreated.class)
+                .toArriveAndVerify(e -> {
+                    assertThat(e.getContract().representations().getRaw()).containsEntry("symbol", "NONEXISTENT");
+                });
     }
 
     @Test

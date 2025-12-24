@@ -4,6 +4,7 @@ import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentati
 import com.cocroachden.modulithrefactordemo.contract.event.ContractCreated;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.modulith.test.ApplicationModuleTest;
@@ -24,6 +25,11 @@ class CreateContractUseCaseTest {
 
     @Autowired
     private ContractRepository contractRepository;
+
+    @BeforeEach
+    void setUp() {
+        contractRepository.deleteAll();
+    }
 
     @Test
     void itCanCreateContract(Scenario scenario) {

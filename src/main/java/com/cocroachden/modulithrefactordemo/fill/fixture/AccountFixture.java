@@ -1,8 +1,12 @@
-package com.cocroachden.modulithrefactordemo.account.fixture;
+package com.cocroachden.modulithrefactordemo.fill.fixture;
 
 import com.cocroachden.modulithrefactordemo.account.domain.*;
-import com.cocroachden.modulithrefactordemo.account.usecase.RecordFillForm;
-import com.cocroachden.modulithrefactordemo.account.usecase.RecordFillUseCase;
+import com.cocroachden.modulithrefactordemo.fill.domain.OrderId;
+import com.cocroachden.modulithrefactordemo.fill.domain.Price;
+import com.cocroachden.modulithrefactordemo.fill.domain.Qty;
+import com.cocroachden.modulithrefactordemo.fill.domain.TradeId;
+import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillForm;
+import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillUseCase;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
 import com.cocroachden.modulithrefactordemo.infrastructure.fixture.Fixture;

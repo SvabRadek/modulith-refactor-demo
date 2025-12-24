@@ -78,7 +78,7 @@ class EditContractUseCaseTest {
         );
         assertThatThrownBy(() -> editContractUseCase.handle(editForm))
                 .isInstanceOf(RuntimeException.class)
-                .hasMessageContaining("Contract not found");
+                .hasMessageContaining("not found!");
     }
 
     @Test

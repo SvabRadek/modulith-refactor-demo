@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
@@ -27,7 +25,4 @@ public class AccountEntity extends AbstractEntity<AccountId> {
     public AccountEntity(AccountId id) {
         this.id = id;
     }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
-    private List<FillEntity> fills;
 }

@@ -16,7 +16,7 @@ public interface ContractRepository extends JpaRepository<ContractEntity, Contra
     @Query("select c from ContractEntity c join c.representations cr where cr.format = :format and cr.representation = :value")
     Optional<ContractEntity> findByRepresentation(String format, String value);
 
-    @Query("select c from ContractEntity c join c.representations cr where cr in :representations")
     @Transactional(readOnly = true)
+    @Query("select c from ContractEntity c join c.representations cr where cr in :representations")
     Optional<ContractEntity> findByRepresentations(Set<ContractRepresentationEntity> representations);
 }

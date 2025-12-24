@@ -1,7 +1,8 @@
-package com.cocroachden.modulithrefactordemo.account.repository;
+package com.cocroachden.modulithrefactordemo.fill.repository;
 
-import com.cocroachden.modulithrefactordemo.account.domain.*;
+import com.cocroachden.modulithrefactordemo.account.domain.AccountId;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractId;
+import com.cocroachden.modulithrefactordemo.fill.domain.*;
 import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -26,12 +27,11 @@ public class FillEntity extends AbstractEntity<FillId> {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumns({
-            @JoinColumn(name = "account_id"),
-            @JoinColumn(name = "trading_environment")
+    @AttributeOverrides({
+            @AttributeOverride(name = "name", column = @Column(name = "account_name")),
+            @AttributeOverride(name = "tradingEnvironment", column = @Column(name = "trading_environment"))
     })
-    private AccountEntity account;
+    private AccountId account;
 
     @Embedded
     @AttributeOverride(name = "id", column = @Column(name = "trade_id"))

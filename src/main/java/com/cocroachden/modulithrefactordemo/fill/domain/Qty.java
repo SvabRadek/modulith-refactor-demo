@@ -1,4 +1,4 @@
-package com.cocroachden.modulithrefactordemo.account.domain;
+package com.cocroachden.modulithrefactordemo.fill.domain;
 
 import org.springframework.util.Assert;
 
