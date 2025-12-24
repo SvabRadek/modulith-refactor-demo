@@ -1,6 +1,6 @@
 app:
   fixture:
-    tags: [ "contract/basic", "account/basic" ]
+    tags: [ "contract/basic", "fill/basic" ]
 
 spring:
   application:

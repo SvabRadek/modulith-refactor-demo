@@ -20,15 +20,15 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class AccountFixture implements Fixture {
+public class FillFixture implements Fixture {
 
     private static final int FILL_COUNT = 3000;
-    public static final String TAG = "account/basic";
+    public static final String TAG = "fill/basic";
     private final RecordFillUseCase recordFillUseCase;
 
     @Override
     public void execute() {
-        log.info("Generating [BASIC] account fixture...");
+        log.info("Generating [BASIC] fill fixture...");
         var start = System.currentTimeMillis();
         var accounts = List.of(
                 new AccountId("A", TradingEnvironment.SIM),
@@ -54,7 +54,7 @@ public class AccountFixture implements Fixture {
                     )
             );
         }
-        log.info("Account fixture completed!");
+        log.info("Fill fixture completed!");
         log.info("Duration: {}s", Duration.ofMillis(System.currentTimeMillis() - start).toSeconds());
     }
 
