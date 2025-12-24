@@ -33,11 +33,9 @@ public class FillEntity extends AbstractEntity<FillId> {
     })
     private AccountId account;
 
-    @Embedded
     @AttributeOverride(name = "id", column = @Column(name = "trade_id"))
     private TradeId tradeId;
 
-    @Embedded
     @AttributeOverride(name = "id", column = @Column(name = "order_id"))
     private OrderId orderId;
 

@@ -1,11 +1,8 @@
 package com.cocroachden.modulithrefactordemo.fill.domain;
 
-import jakarta.persistence.Embeddable;
-
 import java.util.Objects;
 import java.util.UUID;
 
-@Embeddable
 public record TradeId(UUID id) {
     public TradeId {
         Objects.requireNonNull(id, "Trade id cannot be null!");

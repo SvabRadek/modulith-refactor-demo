@@ -13,10 +13,10 @@ import java.util.Set;
 public interface ContractRepository extends JpaRepository<ContractEntity, ContractId> {
 
     @Transactional(readOnly = true)
-    @Query("select c from ContractEntity c join c.representations cr where cr.format = :format and cr.representation = :value")
+    @Query("select c from ContractEntity c join c.representations cr where cr.key.format = :format and cr.key.representation = :value")
     Optional<ContractEntity> findByRepresentation(String format, String value);
 
     @Transactional(readOnly = true)
-    @Query("select c from ContractEntity c join c.representations cr where cr in :representations")
-    Optional<ContractEntity> findByRepresentations(Set<ContractRepresentationEntity> representations);
+    @Query("select c from ContractEntity c join c.representations cr where cr.key in :representations")
+    Optional<ContractEntity> findByRepresentations(Set<ContractRepresentationEntity.Key> representations);
 }

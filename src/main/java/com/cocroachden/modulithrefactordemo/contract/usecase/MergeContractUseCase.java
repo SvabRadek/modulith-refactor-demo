@@ -1,6 +1,7 @@
 package com.cocroachden.modulithrefactordemo.contract.usecase;
 
 import com.cocroachden.modulithrefactordemo.contract.domain.Contract;
+import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
 import com.cocroachden.modulithrefactordemo.contract.utils.ContractUtils;
 import com.cocroachden.modulithrefactordemo.infrastructure.stereotype.UseCase;
@@ -19,10 +20,9 @@ public class MergeContractUseCase {
                 ContractUtils.map(form.representations())
         );
         if (foundContract.isPresent()) {
-            var representations = foundContract.get()
-                    .getRepresentations()
-                    .putAll(form.representations().toList());
-            return editContractUseCase.handleInternally(foundContract.get(), representations);
+            var merged = ContractUtils.map(foundContract.get()).representations()
+                    .putAll(form.representations());
+            return editContractUseCase.handleInternally(foundContract.get(), merged);
         }
         return createContractUseCase.handle(new CreateContractForm(form.representations()));
     }

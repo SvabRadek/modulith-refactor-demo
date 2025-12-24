@@ -14,25 +14,29 @@ public class ContractUtils {
     public static Contract map(ContractEntity entity) {
         return new Contract(
                 entity.getId(),
-                entity.getRepresentations()
+                ContractUtils.map(entity.getRepresentations())
         );
     }
 
     public static ContractRepresentation map(ContractRepresentationEntity entity) {
         return new ContractRepresentation(
-                entity.format(),
-                entity.representation()
+                entity.getKey().format(),
+                entity.getKey().representation()
         );
     }
 
-    public static ContractRepresentationEntity map(ContractRepresentation dto) {
-        return new ContractRepresentationEntity(
+    public static ContractRepresentations map(Set<ContractRepresentationEntity> entities) {
+        return new ContractRepresentations(entities.stream().map(ContractUtils::map).toList());
+    }
+
+    public static ContractRepresentationEntity.Key map(ContractRepresentation dto) {
+        return new ContractRepresentationEntity.Key(
                 dto.format(),
                 dto.value()
         );
     }
 
-    public static Set<ContractRepresentationEntity> map(ContractRepresentations dto) {
+    public static Set<ContractRepresentationEntity.Key> map(ContractRepresentations dto) {
         return dto.stream().map(ContractUtils::map).collect(Collectors.toSet());
     }
 }

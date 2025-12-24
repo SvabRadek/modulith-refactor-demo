@@ -9,6 +9,7 @@ import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "contract")
@@ -25,28 +26,22 @@ public class ContractEntity extends AbstractEntity<ContractId> {
         this.id = id;
     }
 
-    @ElementCollection
-    @CollectionTable(
-            name = "contract_representation",
-            joinColumns = @JoinColumn(name = "contract_id"),
-            indexes = @Index(name = "idx_format_repre", columnList = "format, representation"),
-            uniqueConstraints = {
-                    @UniqueConstraint(columnNames = {"format", "representation"}),
-                    @UniqueConstraint(columnNames = {"contract_id", "format"})
-            }
-    )
+    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ContractRepresentationEntity> representations = new HashSet<>();
+
+    public void setRepresentations(Set<ContractRepresentationEntity> representations) {
+        this.representations.clear();
+        representations.forEach(r -> r.setContract(this));
+        this.representations.addAll(representations);
+    }
 
     public void setRepresentations(ContractRepresentations representations) {
         this.representations.clear();
-        this.representations.addAll(ContractUtils.map(representations));
-    }
-
-    public ContractRepresentations getRepresentations() {
-        return new ContractRepresentations(
-                representations.stream()
-                        .map(ContractUtils::map)
-                        .toList()
-        );
+        var set = representations.stream()
+                .map(ContractUtils::map)
+                .map(ContractRepresentationEntity::new)
+                .peek(r -> r.setContract(this))
+                .collect(Collectors.toSet());
+        this.representations.addAll(set);
     }
 }

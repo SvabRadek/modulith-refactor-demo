@@ -5,11 +5,14 @@ import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentati
 import com.cocroachden.modulithrefactordemo.contract.event.ContractEdited;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractEntity;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
+import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepresentationEntity;
 import com.cocroachden.modulithrefactordemo.contract.utils.ContractUtils;
 import com.cocroachden.modulithrefactordemo.infrastructure.stereotype.UseCase;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
+
+import java.util.stream.Collectors;
 
 @UseCase
 @AllArgsConstructor

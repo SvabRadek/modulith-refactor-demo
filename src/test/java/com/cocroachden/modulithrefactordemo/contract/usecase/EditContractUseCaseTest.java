@@ -3,6 +3,7 @@ package com.cocroachden.modulithrefactordemo.contract.usecase;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractId;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
+import com.cocroachden.modulithrefactordemo.contract.utils.ContractUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ class EditContractUseCaseTest {
 
         var savedContract = contractRepository.findById(contract.id());
         assertThat(savedContract).isPresent();
-        assertThat(savedContract.get().getRepresentations().getRaw())
+        assertThat(ContractUtils.map(savedContract.get().getRepresentations()).getRaw())
                 .containsEntry("type", "OPTION")
                 .containsEntry("strike", "150");
     }

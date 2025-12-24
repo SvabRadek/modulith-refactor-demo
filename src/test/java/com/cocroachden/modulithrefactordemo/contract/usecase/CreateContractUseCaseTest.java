@@ -3,6 +3,7 @@ package com.cocroachden.modulithrefactordemo.contract.usecase;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.event.ContractCreated;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
+import com.cocroachden.modulithrefactordemo.contract.utils.ContractUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,7 +51,8 @@ class CreateContractUseCaseTest {
 
         var contractFromDb = contractRepository.findById(contract.id());
         assertThat(contractFromDb).isPresent();
-        assertThat(contractFromDb.get().getRepresentations().getRaw()).containsEntry("symbol", "AAPL");
+        var representations = ContractUtils.map(contractFromDb.get().getRepresentations());
+        assertThat(representations.getRaw()).containsEntry("symbol", "AAPL");
     }
 
     @Test
@@ -68,7 +70,7 @@ class CreateContractUseCaseTest {
                     if (contractFromDb.isEmpty()) {
                         Assertions.fail("Contract not found");
                     } else {
-                        assertThat(contractFromDb.get().getRepresentations().getRaw())
+                        assertThat(ContractUtils.map(contractFromDb.get().getRepresentations()).getRaw())
                                 .hasSize(3)
                                 .containsEntry("symbol", "TSLA")
                                 .containsEntry("exchange", "NASDAQ")
