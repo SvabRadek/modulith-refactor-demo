@@ -6,7 +6,7 @@ import com.cocroachden.modulithrefactordemo.fill.domain.OrderId;
 import com.cocroachden.modulithrefactordemo.fill.domain.Price;
 import com.cocroachden.modulithrefactordemo.fill.domain.Qty;
 import com.cocroachden.modulithrefactordemo.fill.domain.TradeId;
-import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
+import com.cocroachden.modulithrefactordemo.account.domain.TradingEnvironment;
 
 import java.util.List;
 import java.util.Objects;

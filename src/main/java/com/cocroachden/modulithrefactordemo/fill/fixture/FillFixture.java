@@ -8,7 +8,7 @@ import com.cocroachden.modulithrefactordemo.fill.domain.TradeId;
 import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillForm;
 import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillUseCase;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
-import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
+import com.cocroachden.modulithrefactordemo.account.domain.TradingEnvironment;
 import com.cocroachden.modulithrefactordemo.infrastructure.fixture.Fixture;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

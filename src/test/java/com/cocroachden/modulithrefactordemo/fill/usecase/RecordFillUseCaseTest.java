@@ -16,7 +16,7 @@ import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentati
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
 import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractForm;
 import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractUseCase;
-import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
+import com.cocroachden.modulithrefactordemo.account.domain.TradingEnvironment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
