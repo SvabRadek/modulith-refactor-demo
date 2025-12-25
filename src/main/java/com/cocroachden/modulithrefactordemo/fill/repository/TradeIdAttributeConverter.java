@@ -10,7 +10,7 @@ import java.util.UUID;
 public class TradeIdAttributeConverter implements AttributeConverter<TradeId, UUID> {
     @Override
     public UUID convertToDatabaseColumn(TradeId attribute) {
-        return attribute.id();
+        return attribute.getId();
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.UUID;
 public class ContractIdAttributeConverter implements AttributeConverter<ContractId, UUID> {
     @Override
     public UUID convertToDatabaseColumn(ContractId attribute) {
-        return attribute.id();
+        return attribute.getId();
     }
 
     @Override

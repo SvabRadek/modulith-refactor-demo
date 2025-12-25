@@ -5,6 +5,10 @@ import com.cocroachden.modulithrefactordemo.account.repository.AccountEntity;
 
 public class AccountUtils {
     public static Account map(AccountEntity entity) {
-        return new Account(entity.getId());
+        return new Account(
+                entity.getId(),
+                entity.getName(),
+                entity.getTradingEnvironment()
+        );
     }
 }

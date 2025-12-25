@@ -26,12 +26,20 @@ public class ContractEntity extends AbstractEntity<ContractId> {
         this.id = id;
     }
 
-    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
+    //    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ElementCollection
+    @CollectionTable(
+            name = "contract_representation",
+            joinColumns = @JoinColumn(name = "contract_id"),
+            uniqueConstraints = {
+                    @UniqueConstraint(columnNames = {"contract_id", "format"}),
+                    @UniqueConstraint(columnNames = {"format", "representation"})
+            }
+    )
     private Set<ContractRepresentationEntity> representations = new HashSet<>();
 
     public void setRepresentations(Set<ContractRepresentationEntity> representations) {
         this.representations.clear();
-        representations.forEach(r -> r.setContract(this));
         this.representations.addAll(representations);
     }
 
@@ -39,8 +47,6 @@ public class ContractEntity extends AbstractEntity<ContractId> {
         this.representations.clear();
         var set = representations.stream()
                 .map(ContractUtils::map)
-                .map(ContractRepresentationEntity::new)
-                .peek(r -> r.setContract(this))
                 .collect(Collectors.toSet());
         this.representations.addAll(set);
     }

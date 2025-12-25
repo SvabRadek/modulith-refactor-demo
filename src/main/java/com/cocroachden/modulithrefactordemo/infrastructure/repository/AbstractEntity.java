@@ -9,7 +9,7 @@ import org.springframework.data.domain.Persistable;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class AbstractEntity<ID> implements Persistable<ID> {
+public abstract class AbstractEntity<ID extends EntityId<?>> implements Persistable<ID>, Entity<ID> {
 
     @Transient
     private boolean isNew = true;

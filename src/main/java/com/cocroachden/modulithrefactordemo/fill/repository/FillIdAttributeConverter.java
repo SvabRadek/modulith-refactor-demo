@@ -10,7 +10,7 @@ import java.util.UUID;
 public class FillIdAttributeConverter implements AttributeConverter<FillId, UUID> {
     @Override
     public UUID convertToDatabaseColumn(FillId attribute) {
-        return attribute.id();
+        return attribute.getId();
     }
 
     @Override

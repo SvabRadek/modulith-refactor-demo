@@ -20,8 +20,8 @@ public class ContractUtils {
 
     public static ContractRepresentation map(ContractRepresentationEntity entity) {
         return new ContractRepresentation(
-                entity.getKey().format(),
-                entity.getKey().representation()
+                entity.format(),
+                entity.representation()
         );
     }
 
@@ -29,14 +29,14 @@ public class ContractUtils {
         return new ContractRepresentations(entities.stream().map(ContractUtils::map).toList());
     }
 
-    public static ContractRepresentationEntity.Key map(ContractRepresentation dto) {
-        return new ContractRepresentationEntity.Key(
+    public static ContractRepresentationEntity map(ContractRepresentation dto) {
+        return new ContractRepresentationEntity(
                 dto.format(),
                 dto.value()
         );
     }
 
-    public static Set<ContractRepresentationEntity.Key> map(ContractRepresentations dto) {
+    public static Set<ContractRepresentationEntity> map(ContractRepresentations dto) {
         return dto.stream().map(ContractUtils::map).collect(Collectors.toSet());
     }
 }

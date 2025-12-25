@@ -1,5 +1,6 @@
 package com.cocroachden.modulithrefactordemo.account.usecase;
 
+import com.cocroachden.modulithrefactordemo.account.domain.AccountName;
 import com.cocroachden.modulithrefactordemo.account.event.AccountCreated;
 import com.cocroachden.modulithrefactordemo.account.repository.AccountRepository;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
@@ -30,31 +31,31 @@ class CreateAccountUseCaseTest {
 
     @Test
     void itCanCreateAccount(Scenario scenario) {
-        var form = new CreateAccountForm("MyAccount", TradingEnvironment.SIM);
+        var form = new CreateAccountForm(AccountName.of("MyAccount"), TradingEnvironment.SIM);
         scenario.stimulate(() -> createAccountUseCase.handle(form))
                 .forEventOfType(AccountCreated.class)
                 .toArriveAndVerify(event -> {
                     assertThat(event.getAccount()).isNotNull();
-                    assertThat(event.getAccount().id().name()).isEqualTo("MyAccount");
-                    assertThat(event.getAccount().id().tradingEnvironment()).isEqualTo(TradingEnvironment.SIM);
+                    assertThat(event.getAccount().name()).isEqualTo(form.name());
+                    assertThat(event.getAccount().tradingEnvironment()).isEqualTo(TradingEnvironment.SIM);
                 });
     }
 
     @Test
     void itSavesAccountToDatabase(Scenario scenario) {
-        var form = new CreateAccountForm("PersistentAccount", TradingEnvironment.UAT);
+        var form = new CreateAccountForm(AccountName.of("PersistentAccount"), TradingEnvironment.UAT);
         scenario.stimulate(() -> createAccountUseCase.handle(form))
                 .forEventOfType(AccountCreated.class)
                 .toArriveAndVerify(event -> {
                     var savedAccount = accountRepository.findById(event.getAccount().id());
                     assertThat(savedAccount).isPresent();
-                    assertThat(savedAccount.get().getId().name()).isEqualTo("PersistentAccount");
+                    assertThat(savedAccount.get().getName()).isEqualTo(form.name());
                 });
     }
 
     @Test
     void itThrowsExceptionWhenAccountAlreadyExists() {
-        var form = new CreateAccountForm("DuplicateAccount", TradingEnvironment.LIVE);
+        var form = new CreateAccountForm(AccountName.of("DuplicateAccount"), TradingEnvironment.LIVE);
         createAccountUseCase.handle(form);
         assertThatThrownBy(() -> createAccountUseCase.handle(form))
                 .isInstanceOf(RuntimeException.class)
@@ -63,20 +64,20 @@ class CreateAccountUseCaseTest {
 
     @Test
     void itCanCreateAccountsWithDifferentEnvironments(Scenario scenario) {
-        var formSim = new CreateAccountForm("MultiEnvAccount", TradingEnvironment.SIM);
-        var formUat = new CreateAccountForm("MultiEnvAccount", TradingEnvironment.UAT);
+        var formSim = new CreateAccountForm(AccountName.of("MultiEnvAccount"), TradingEnvironment.SIM);
+        var formUat = new CreateAccountForm(AccountName.of("MultiEnvAccount"), TradingEnvironment.UAT);
         scenario.stimulate(() -> createAccountUseCase.handle(formSim))
                 .forEventOfType(AccountCreated.class)
                 .toArriveAndVerify(event -> {
-                    assertThat(event.getAccount().id().name()).isEqualTo(formSim.name());
-                    assertThat(event.getAccount().id().tradingEnvironment()).isEqualTo(formSim.tradingEnvironment());
+                    assertThat(event.getAccount().name()).isEqualTo(formSim.name());
+                    assertThat(event.getAccount().tradingEnvironment()).isEqualTo(formSim.tradingEnvironment());
                 });
         scenario.stimulate(() -> createAccountUseCase.handle(formUat))
                 .forEventOfType(AccountCreated.class)
-                .matching(e -> e.getAccount().id().tradingEnvironment().equals(TradingEnvironment.UAT))
+                .matching(e -> e.getAccount().tradingEnvironment().equals(TradingEnvironment.UAT))
                 .toArriveAndVerify(event -> {
-                    assertThat(event.getAccount().id().name()).isEqualTo(formUat.name());
-                    assertThat(event.getAccount().id().tradingEnvironment()).isEqualTo(TradingEnvironment.UAT);
+                    assertThat(event.getAccount().name()).isEqualTo(formUat.name());
+                    assertThat(event.getAccount().tradingEnvironment()).isEqualTo(TradingEnvironment.UAT);
                 });
     }
 }

@@ -35,18 +35,18 @@ public class RecordFillUseCase {
         if (fillRepository.existsByTradeIdAndOrderId(form.tradeId(), form.orderId())) {
             throw new FillAlreadyExistsException(form.tradeId(), form.orderId());
         }
-        var account = accountQuery.findById(form.accountId())
+        var account = accountQuery.findByName(form.accountName(), form.tradingEnvironment())
                 .orElseGet(() -> createAccountUseCase.handle(
                         new CreateAccountForm(
-                                form.accountId().name(),
-                                form.accountId().tradingEnvironment()
+                                form.accountName(),
+                                form.tradingEnvironment()
                         )
                 ));
         var representations = new ContractRepresentations(form.representations());
         var contract = contractQuery.findContract(representations)
                 .orElseGet(() -> createContractUseCase.handle(new CreateContractForm(representations)));
         var fillEntity = new FillEntity(FillId.random());
-        fillEntity.setAccount(account.id());
+        fillEntity.setAccountId(account.id());
         fillEntity.setContractId(contract.id());
         fillEntity.setPrice(form.price());
         fillEntity.setQty(form.qty());

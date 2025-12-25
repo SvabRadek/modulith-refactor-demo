@@ -4,6 +4,6 @@ import com.cocroachden.modulithrefactordemo.contract.domain.ContractId;
 
 public class ContractNotFound extends RuntimeException {
     public ContractNotFound(ContractId contractId) {
-        super("Contract %s not found!".formatted(contractId.id()));
+        super("Contract %s not found!".formatted(contractId.getId()));
     }
 }

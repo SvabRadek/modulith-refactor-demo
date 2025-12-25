@@ -1,11 +1,16 @@
 package com.cocroachden.modulithrefactordemo.fill.domain;
 
-import java.util.Objects;
+import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntityId;
+
 import java.util.UUID;
 
-public record OrderId(UUID id) {
-    public OrderId {
-        Objects.requireNonNull(id, "Order id cannot be null!");
+public class OrderId extends AbstractEntityId<UUID> {
+
+    public OrderId(UUID id) {
+        super(id);
+    }
+
+    protected OrderId() {
     }
 
     public static OrderId random() {

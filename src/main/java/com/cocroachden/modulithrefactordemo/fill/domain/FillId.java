@@ -1,12 +1,17 @@
 package com.cocroachden.modulithrefactordemo.fill.domain;
 
-import java.util.Objects;
+import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntityId;
+
 import java.util.UUID;
 
-public record FillId(UUID id) {
-    public FillId {
-        Objects.requireNonNull(id, "Id cannot be null!");
+public class FillId extends AbstractEntityId<UUID> {
+
+    public FillId(UUID id) {
+        super(id);
     }
+
+    protected FillId() {}
+
     public static FillId random() {
         return new FillId(UUID.randomUUID());
     }

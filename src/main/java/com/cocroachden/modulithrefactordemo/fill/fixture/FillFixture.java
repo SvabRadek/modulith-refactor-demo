@@ -31,11 +31,11 @@ public class FillFixture implements Fixture {
         log.info("Generating [BASIC] fill fixture...");
         var start = System.currentTimeMillis();
         var accounts = List.of(
-                new AccountId("A", TradingEnvironment.SIM),
-                new AccountId("B", TradingEnvironment.UAT),
-                new AccountId("C", TradingEnvironment.LIVE),
-                new AccountId("D", TradingEnvironment.UAT),
-                new AccountId("E", TradingEnvironment.SIM)
+                new Account(AccountId.random(), new AccountName("A"), TradingEnvironment.SIM),
+                new Account(AccountId.random(), new AccountName("B"), TradingEnvironment.UAT),
+                new Account(AccountId.random(), new AccountName("C"), TradingEnvironment.LIVE),
+                new Account(AccountId.random(), new AccountName("D"), TradingEnvironment.UAT),
+                new Account(AccountId.random(), new AccountName("E"), TradingEnvironment.SIM)
         );
 
         for (int i = 0; i < FILL_COUNT; i++) {
@@ -43,7 +43,8 @@ public class FillFixture implements Fixture {
                     new RecordFillForm(
                             TradeId.random(),
                             OrderId.random(),
-                            accounts.get(i % accounts.size()),
+                            accounts.get(i % accounts.size()).name(),
+                            accounts.get(i % accounts.size()).tradingEnvironment(),
                             List.of(
                                     new ContractRepresentation("A", "A" + i),
                                     new ContractRepresentation("B", "B" + i),

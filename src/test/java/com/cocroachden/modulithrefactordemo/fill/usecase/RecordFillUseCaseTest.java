@@ -65,8 +65,7 @@ class RecordFillUseCaseTest {
 
     @Test
     void itCanRecordFill(Scenario scenario) {
-        var accountId = new AccountId("TestAccount", TradingEnvironment.SIM);
-        createAccountUseCase.handle(new CreateAccountForm("TestAccount", TradingEnvironment.SIM));
+        var account = createAccountUseCase.handle(new CreateAccountForm(AccountName.of("TestAccount"), TradingEnvironment.SIM));
         var contract = createContractUseCase.handle(new CreateContractForm(
                 new ContractRepresentations(Map.of("TT", "AAPL"))
         ));
@@ -74,7 +73,8 @@ class RecordFillUseCaseTest {
         var form = new RecordFillForm(
                 TradeId.random(),
                 OrderId.random(),
-                accountId,
+                account.name(),
+                account.tradingEnvironment(),
                 List.of(new ContractRepresentation("TT", "AAPL")),
                 new Price(15000L),
                 new Qty(10L)
@@ -85,7 +85,7 @@ class RecordFillUseCaseTest {
                 .toArriveAndVerify(event -> {
                     assertThat(event.fill()).isNotNull();
                     assertThat(event.fill().id()).isNotNull();
-                    assertThat(event.fill().accountId()).isEqualTo(accountId);
+                    assertThat(event.fill().accountId()).isEqualTo(account.id());
                     assertThat(event.fill().contractId()).isEqualTo(contract.id());
                     assertThat(event.fill().price()).isEqualTo(new Price(15000L));
                     assertThat(event.fill().qty()).isEqualTo(new Qty(10L));
@@ -94,8 +94,6 @@ class RecordFillUseCaseTest {
 
     @Test
     void itCreatesAccountAutomaticallyIfNotExists() {
-        var accountId = new AccountId("AutoCreatedAccount", TradingEnvironment.UAT);
-
         createContractUseCase.handle(new CreateContractForm(
                 new ContractRepresentations(Map.of("symbol", "TSLA"))
         ));
@@ -103,7 +101,8 @@ class RecordFillUseCaseTest {
         var form = new RecordFillForm(
                 TradeId.random(),
                 OrderId.random(),
-                accountId,
+                AccountName.of("AutoCreatedAccount"),
+                TradingEnvironment.UAT,
                 List.of(new ContractRepresentation("symbol", "TSLA")),
                 new Price(20000L),
                 new Qty(5L)
@@ -112,18 +111,21 @@ class RecordFillUseCaseTest {
         var recordedFill = recordFillUseCase.handle(form);
 
         assertThat(recordedFill).isNotNull();
-        assertThat(accountRepository.findById(accountId)).isPresent();
+        assertThat(accountRepository.findByNameAndTradingEnvironment(
+                form.accountName(), form.tradingEnvironment()
+        )).isPresent();
     }
 
     @Test
     void itCreatesNewWhenContractNotFound(Scenario scenario) {
-        var accountId = new AccountId("TestAccount2", TradingEnvironment.SIM);
-        createAccountUseCase.handle(new CreateAccountForm("TestAccount2", TradingEnvironment.SIM));
-
+        var account = createAccountUseCase.handle(
+                new CreateAccountForm(AccountName.of("TestAccount2"), TradingEnvironment.SIM)
+        );
         var form = new RecordFillForm(
                 TradeId.random(),
                 OrderId.random(),
-                accountId,
+                account.name(),
+                account.tradingEnvironment(),
                 List.of(new ContractRepresentation("symbol", "NONEXISTENT")),
                 new Price(10000L),
                 new Qty(1L)
@@ -137,8 +139,7 @@ class RecordFillUseCaseTest {
 
     @Test
     void itThrowsExceptionWhenDuplicateFill() {
-        var accountId = new AccountId("TestAccount3", TradingEnvironment.LIVE);
-        createAccountUseCase.handle(new CreateAccountForm("TestAccount3", TradingEnvironment.LIVE));
+        var account = createAccountUseCase.handle(new CreateAccountForm(AccountName.of("TestAccount3"), TradingEnvironment.LIVE));
         createContractUseCase.handle(new CreateContractForm(
                 new ContractRepresentations(Map.of("symbol", "MSFT"))
         ));
@@ -149,7 +150,8 @@ class RecordFillUseCaseTest {
         var form = new RecordFillForm(
                 tradeId,
                 orderId,
-                accountId,
+                account.name(),
+                account.tradingEnvironment(),
                 List.of(new ContractRepresentation("symbol", "MSFT")),
                 new Price(30000L),
                 new Qty(20L)

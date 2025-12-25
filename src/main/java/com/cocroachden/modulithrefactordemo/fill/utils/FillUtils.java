@@ -8,7 +8,7 @@ public class FillUtils {
     public static RecordedFill map(FillEntity entity) {
         return new RecordedFill(
                 entity.getId(),
-                entity.getAccount(),
+                entity.getAccountId(),
                 entity.getContractId(),
                 entity.getPrice(),
                 entity.getQty(),

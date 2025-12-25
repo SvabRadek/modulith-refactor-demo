@@ -1,6 +1,8 @@
 package com.cocroachden.modulithrefactordemo.account.repository;
 
 import com.cocroachden.modulithrefactordemo.account.domain.AccountId;
+import com.cocroachden.modulithrefactordemo.account.domain.AccountName;
+import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
 import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -16,11 +18,13 @@ import lombok.Setter;
 public class AccountEntity extends AbstractEntity<AccountId> {
 
     @EmbeddedId
-    @AttributeOverrides({
-            @AttributeOverride(name = "name", column = @Column(name = "name")),
-            @AttributeOverride(name = "tradingEnvironment", column = @Column(name = "trading_environment"))
-    })
     private AccountId id;
+
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "name"))
+    private AccountName name;
+    @Enumerated(EnumType.STRING)
+    private TradingEnvironment tradingEnvironment;
 
     public AccountEntity(AccountId id) {
         this.id = id;

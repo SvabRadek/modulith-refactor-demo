@@ -1,16 +1,18 @@
 package com.cocroachden.modulithrefactordemo.account.domain;
 
-import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntityId;
 
-import java.util.Objects;
+import java.util.UUID;
 
-@Embeddable
-public record AccountId(String name, @Enumerated(EnumType.STRING) TradingEnvironment tradingEnvironment) {
-    public AccountId {
-        Objects.requireNonNull(name, "Account name cannot be null!");
-        Objects.requireNonNull(tradingEnvironment, "Trading environment cannot be null!");
+public class AccountId extends AbstractEntityId<UUID> {
+    public AccountId(UUID id) {
+        super(id);
+    }
+
+    protected AccountId() {
+    }
+
+    public static AccountId random() {
+        return new AccountId(UUID.randomUUID());
     }
 }
