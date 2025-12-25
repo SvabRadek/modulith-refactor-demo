@@ -26,7 +26,6 @@ public class ContractEntity extends AbstractEntity<ContractId> {
         this.id = id;
     }
 
-    //    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
     @ElementCollection
     @CollectionTable(
             name = "contract_representation",
