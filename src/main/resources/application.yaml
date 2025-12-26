@@ -13,6 +13,4 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-#      naming:
-#        implicit-strategy: com.cocroachden.modulithrefactordemo.infrastructure.repository.SingleFieldEmbeddableNamingStrategy
     show-sql: true

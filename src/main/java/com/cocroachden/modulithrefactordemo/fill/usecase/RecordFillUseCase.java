@@ -16,6 +16,7 @@ import com.cocroachden.modulithrefactordemo.fill.utils.FillUtils;
 import com.cocroachden.modulithrefactordemo.infrastructure.stereotype.UseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.modulith.events.ApplicationModuleListener;
 
 import java.time.InstantSource;
 
@@ -57,5 +58,4 @@ public class RecordFillUseCase {
         publisher.publishEvent(new FillRecorded(saved));
         return saved;
     }
-
 }
