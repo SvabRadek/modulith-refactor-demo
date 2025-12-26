@@ -9,10 +9,12 @@ import com.cocroachden.modulithrefactordemo.account.usecase.RecordFillForm;
 import com.cocroachden.modulithrefactordemo.account.usecase.RecordFillUseCase;
 import com.cocroachden.modulithrefactordemo.infrastructure.stereotype.UseCase;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 
 @UseCase
 @AllArgsConstructor
+@Slf4j
 public class ProcessAgentFillUseCase {
 
     private final AgentRepository agentRepository;
@@ -21,9 +23,10 @@ public class ProcessAgentFillUseCase {
     private final RecordFillUseCase recordFillUseCase;
 
     public RecordedFill handle(ReceiveAgentFillForm form) {
+        log.info("Received fill from agent {}", form.agentId());
         var agent = agentRepository.findById(form.agentId())
                 .map(AgentUtils::map)
-                .orElse(registerAgentUseCase.handle(new RegisterAgentForm(form.agentId())));
+                .orElse(registerAgentUseCase.handle(new RegisterAgentForm(form.agentId(), form.tradingEnvironment())));
         var agentFill = new AgentFill(
                 agent.id(),
                 form.tradeId(),

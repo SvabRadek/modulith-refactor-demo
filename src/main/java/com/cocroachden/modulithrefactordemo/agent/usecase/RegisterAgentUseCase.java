@@ -23,6 +23,7 @@ public class RegisterAgentUseCase {
     public Agent handle(RegisterAgentForm form) {
         AgentEntity agent = new AgentEntity(AgentId.random());
         agent.setLastHeartbeat(instantSource.instant());
+        agent.setTradingEnvironment(form.tradingEnvironment());
         var saved = agentRepository.save(agent);
         var dto = AgentUtils.map(saved);
         publisher.publishEvent(new AgentRegistered(dto));

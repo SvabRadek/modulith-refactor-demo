@@ -13,12 +13,14 @@ import com.cocroachden.modulithrefactordemo.account.repository.FillEntity;
 import com.cocroachden.modulithrefactordemo.account.repository.FillRepository;
 import com.cocroachden.modulithrefactordemo.infrastructure.stereotype.UseCase;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 
 import java.time.InstantSource;
 
 @UseCase
 @AllArgsConstructor
+@Slf4j
 public class RecordFillUseCase {
 
     private final FillRepository fillRepository;
@@ -30,6 +32,7 @@ public class RecordFillUseCase {
     private final CreateContractUseCase createContractUseCase;
 
     public RecordedFill handle(RecordFillForm form) throws FillAlreadyExistsException {
+        log.info("Recording fill {}", form.tradeId());
         if (fillRepository.existsByTradeIdAndOrderId(form.tradeId(), form.orderId())) {
             throw new FillAlreadyExistsException(form.tradeId(), form.orderId());
         }

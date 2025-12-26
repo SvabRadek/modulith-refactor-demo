@@ -11,6 +11,7 @@ import com.cocroachden.modulithrefactordemo.account.domain.Price;
 import com.cocroachden.modulithrefactordemo.account.domain.Qty;
 import com.cocroachden.modulithrefactordemo.account.domain.TradeId;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -26,20 +27,37 @@ public class KafkaConsumer {
     private final ProcessAgentFillUseCase processAgentFillUseCase;
     private final AgentRepository agentRepository;
 
-    void onMessage(String message) {
-        AgentId random = AgentId.random();
+    private final List<AgentId> agents = List.of(AgentId.random(), AgentId.random());
+
+    @Scheduled(fixedRate = 5000)
+    private void produceHb() {
+        onMessage(agents.getFirst(), "heartbeat");
+        onMessage(agents.getLast(), "heartbeat");
+    }
+
+    @Scheduled(fixedRate = 7000)
+    private void produceFill() {
+        onMessage(agents.getFirst(), "fill");
+    }
+
+    @Scheduled(fixedRate = 8000)
+    private void produceAnotherFill() {
+        onMessage(agents.getLast(), "fill");
+    }
+
+    void onMessage(AgentId agentId, String message) {
         if (message.contains("heartbeat")) {
-            if (agentRepository.existsById(random)) {
-                updateAgentHeartbeatUseCase.handle(new UpdateHeartbeatForm(random, Instant.now()));
+            if (agentRepository.existsById(agentId)) {
+                updateAgentHeartbeatUseCase.handle(new UpdateHeartbeatForm(agentId, Instant.now()));
             } else {
-                registerAgentUseCase.handle(new RegisterAgentForm(random));
+                registerAgentUseCase.handle(new RegisterAgentForm(agentId, TradingEnvironment.LIVE));
             }
         } else if (message.contains("fill")) {
             processAgentFillUseCase.handle(new ReceiveAgentFillForm(
-                    random,
+                    agentId,
                     new TradeId(UUID.randomUUID().toString()),
                     new OrderId(UUID.randomUUID().toString()),
-                    new AccountName("SomeAccount"),
+                    new AccountName("Account1"),
                     TradingEnvironment.LIVE,
                     List.of(
                             new ContractRepresentation("TT", "EEX;TTF;Dec25")
