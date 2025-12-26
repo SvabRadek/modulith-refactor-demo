@@ -6,12 +6,10 @@ import com.cocroachden.modulithrefactordemo.agent.domain.AgentId;
 import com.cocroachden.modulithrefactordemo.agent.repository.AgentRepository;
 import com.cocroachden.modulithrefactordemo.agent.usecase.*;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
-import com.cocroachden.modulithrefactordemo.fill.domain.OrderId;
-import com.cocroachden.modulithrefactordemo.fill.domain.Price;
-import com.cocroachden.modulithrefactordemo.fill.domain.Qty;
-import com.cocroachden.modulithrefactordemo.fill.domain.TradeId;
-import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillForm;
-import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillUseCase;
+import com.cocroachden.modulithrefactordemo.account.domain.OrderId;
+import com.cocroachden.modulithrefactordemo.account.domain.Price;
+import com.cocroachden.modulithrefactordemo.account.domain.Qty;
+import com.cocroachden.modulithrefactordemo.account.domain.TradeId;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +24,6 @@ public class KafkaConsumer {
     private final RegisterAgentUseCase registerAgentUseCase;
     private final UpdateAgentHeartbeatUseCase updateAgentHeartbeatUseCase;
     private final ProcessAgentFillUseCase processAgentFillUseCase;
-    private final RecordFillUseCase recordFillUseCase;
     private final AgentRepository agentRepository;
 
     void onMessage(String message) {
@@ -40,8 +37,8 @@ public class KafkaConsumer {
         } else if (message.contains("fill")) {
             processAgentFillUseCase.handle(new ReceiveAgentFillForm(
                     random,
-                    new TradeId(UUID.randomUUID()),
-                    new OrderId(UUID.randomUUID()),
+                    new TradeId(UUID.randomUUID().toString()),
+                    new OrderId(UUID.randomUUID().toString()),
                     new AccountName("SomeAccount"),
                     TradingEnvironment.LIVE,
                     List.of(

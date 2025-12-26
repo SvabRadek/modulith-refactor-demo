@@ -1,8 +1,12 @@
-package com.cocroachden.modulithrefactordemo.fill.repository;
+package com.cocroachden.modulithrefactordemo.account.repository;
 
 import com.cocroachden.modulithrefactordemo.account.domain.AccountId;
+import com.cocroachden.modulithrefactordemo.account.domain.FillId;
+import com.cocroachden.modulithrefactordemo.account.domain.OrderId;
+import com.cocroachden.modulithrefactordemo.account.domain.Price;
+import com.cocroachden.modulithrefactordemo.account.domain.Qty;
+import com.cocroachden.modulithrefactordemo.account.domain.TradeId;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractId;
-import com.cocroachden.modulithrefactordemo.fill.domain.*;
 import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -29,8 +33,12 @@ public class FillEntity extends AbstractEntity<FillId> {
 
     private AccountId accountId;
 
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "trade_id"))
     private TradeId tradeId;
 
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "order_id"))
     private OrderId orderId;
 
     private ContractId contractId;

@@ -1,4 +1,4 @@
-package com.cocroachden.modulithrefactordemo.fill.domain;
+package com.cocroachden.modulithrefactordemo.account.domain;
 
 import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntityId;
 

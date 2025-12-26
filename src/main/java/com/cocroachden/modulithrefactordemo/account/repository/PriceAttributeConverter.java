@@ -1,6 +1,6 @@
-package com.cocroachden.modulithrefactordemo.fill.repository;
+package com.cocroachden.modulithrefactordemo.account.repository;
 
-import com.cocroachden.modulithrefactordemo.fill.domain.Price;
+import com.cocroachden.modulithrefactordemo.account.domain.Price;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

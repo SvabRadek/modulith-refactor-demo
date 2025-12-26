@@ -1,22 +1,19 @@
-package com.cocroachden.modulithrefactordemo.fill.usecase;
+package com.cocroachden.modulithrefactordemo.account.usecase;
 
 import com.cocroachden.modulithrefactordemo.account.query.AccountQuery;
-import com.cocroachden.modulithrefactordemo.account.usecase.CreateAccountForm;
-import com.cocroachden.modulithrefactordemo.account.usecase.CreateAccountUseCase;
+import com.cocroachden.modulithrefactordemo.account.utils.AccountUtils;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.query.ContractQuery;
 import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractForm;
 import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractUseCase;
-import com.cocroachden.modulithrefactordemo.fill.domain.FillId;
-import com.cocroachden.modulithrefactordemo.fill.domain.RecordedFill;
-import com.cocroachden.modulithrefactordemo.fill.event.FillRecorded;
-import com.cocroachden.modulithrefactordemo.fill.repository.FillEntity;
-import com.cocroachden.modulithrefactordemo.fill.repository.FillRepository;
-import com.cocroachden.modulithrefactordemo.fill.utils.FillUtils;
+import com.cocroachden.modulithrefactordemo.account.domain.FillId;
+import com.cocroachden.modulithrefactordemo.account.domain.RecordedFill;
+import com.cocroachden.modulithrefactordemo.account.event.FillRecorded;
+import com.cocroachden.modulithrefactordemo.account.repository.FillEntity;
+import com.cocroachden.modulithrefactordemo.account.repository.FillRepository;
 import com.cocroachden.modulithrefactordemo.infrastructure.stereotype.UseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.modulith.events.ApplicationModuleListener;
 
 import java.time.InstantSource;
 
@@ -54,7 +51,7 @@ public class RecordFillUseCase {
         fillEntity.setOrderId(form.orderId());
         fillEntity.setTradeId(form.tradeId());
         fillEntity.setRecordedAt(instantSource.instant());
-        var saved = FillUtils.map(fillRepository.save(fillEntity));
+        var saved = AccountUtils.map(fillRepository.save(fillEntity));
         publisher.publishEvent(new FillRecorded(saved));
         return saved;
     }

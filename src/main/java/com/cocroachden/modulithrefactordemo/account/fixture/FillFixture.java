@@ -1,12 +1,12 @@
-package com.cocroachden.modulithrefactordemo.fill.fixture;
+package com.cocroachden.modulithrefactordemo.account.fixture;
 
 import com.cocroachden.modulithrefactordemo.account.domain.*;
-import com.cocroachden.modulithrefactordemo.fill.domain.OrderId;
-import com.cocroachden.modulithrefactordemo.fill.domain.Price;
-import com.cocroachden.modulithrefactordemo.fill.domain.Qty;
-import com.cocroachden.modulithrefactordemo.fill.domain.TradeId;
-import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillForm;
-import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillUseCase;
+import com.cocroachden.modulithrefactordemo.account.domain.OrderId;
+import com.cocroachden.modulithrefactordemo.account.domain.Price;
+import com.cocroachden.modulithrefactordemo.account.domain.Qty;
+import com.cocroachden.modulithrefactordemo.account.domain.TradeId;
+import com.cocroachden.modulithrefactordemo.account.usecase.RecordFillForm;
+import com.cocroachden.modulithrefactordemo.account.usecase.RecordFillUseCase;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
 import com.cocroachden.modulithrefactordemo.account.domain.TradingEnvironment;
 import com.cocroachden.modulithrefactordemo.infrastructure.fixture.Fixture;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -41,8 +42,8 @@ public class FillFixture implements Fixture {
         for (int i = 0; i < FILL_COUNT; i++) {
             recordFillUseCase.handle(
                     new RecordFillForm(
-                            TradeId.random(),
-                            OrderId.random(),
+                            new TradeId(UUID.randomUUID().toString()),
+                            new OrderId(UUID.randomUUID().toString()),
                             accounts.get(i % accounts.size()).name(),
                             accounts.get(i % accounts.size()).tradingEnvironment(),
                             List.of(

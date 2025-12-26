@@ -1,8 +1,8 @@
-package com.cocroachden.modulithrefactordemo.fill.repository;
+package com.cocroachden.modulithrefactordemo.account.repository;
 
-import com.cocroachden.modulithrefactordemo.fill.domain.FillId;
-import com.cocroachden.modulithrefactordemo.fill.domain.OrderId;
-import com.cocroachden.modulithrefactordemo.fill.domain.TradeId;
+import com.cocroachden.modulithrefactordemo.account.domain.FillId;
+import com.cocroachden.modulithrefactordemo.account.domain.OrderId;
+import com.cocroachden.modulithrefactordemo.account.domain.TradeId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

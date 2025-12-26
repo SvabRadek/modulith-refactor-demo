@@ -1,22 +1,20 @@
-package com.cocroachden.modulithrefactordemo.fill.usecase;
+package com.cocroachden.modulithrefactordemo.account.usecase;
 
-import com.cocroachden.modulithrefactordemo.account.domain.*;
-import com.cocroachden.modulithrefactordemo.account.usecase.CreateAccountForm;
-import com.cocroachden.modulithrefactordemo.account.usecase.CreateAccountUseCase;
-import com.cocroachden.modulithrefactordemo.contract.event.ContractCreated;
-import com.cocroachden.modulithrefactordemo.fill.event.FillRecorded;
+import com.cocroachden.modulithrefactordemo.account.domain.AccountName;
+import com.cocroachden.modulithrefactordemo.account.domain.TradingEnvironment;
+import com.cocroachden.modulithrefactordemo.account.event.FillRecorded;
 import com.cocroachden.modulithrefactordemo.account.repository.AccountRepository;
-import com.cocroachden.modulithrefactordemo.fill.domain.OrderId;
-import com.cocroachden.modulithrefactordemo.fill.domain.Price;
-import com.cocroachden.modulithrefactordemo.fill.domain.Qty;
-import com.cocroachden.modulithrefactordemo.fill.domain.TradeId;
-import com.cocroachden.modulithrefactordemo.fill.repository.FillRepository;
+import com.cocroachden.modulithrefactordemo.account.repository.FillRepository;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
 import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
+import com.cocroachden.modulithrefactordemo.contract.event.ContractCreated;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
 import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractForm;
 import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractUseCase;
-import com.cocroachden.modulithrefactordemo.account.domain.TradingEnvironment;
+import com.cocroachden.modulithrefactordemo.account.domain.OrderId;
+import com.cocroachden.modulithrefactordemo.account.domain.Price;
+import com.cocroachden.modulithrefactordemo.account.domain.Qty;
+import com.cocroachden.modulithrefactordemo.account.domain.TradeId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +26,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import java.time.InstantSource;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -71,8 +70,8 @@ class RecordFillUseCaseTest {
         ));
 
         var form = new RecordFillForm(
-                TradeId.random(),
-                OrderId.random(),
+                new TradeId(UUID.randomUUID().toString()),
+                new OrderId(UUID.randomUUID().toString()),
                 account.name(),
                 account.tradingEnvironment(),
                 List.of(new ContractRepresentation("TT", "AAPL")),
@@ -99,8 +98,8 @@ class RecordFillUseCaseTest {
         ));
 
         var form = new RecordFillForm(
-                TradeId.random(),
-                OrderId.random(),
+                new TradeId(UUID.randomUUID().toString()),
+                new OrderId(UUID.randomUUID().toString()),
                 AccountName.of("AutoCreatedAccount"),
                 TradingEnvironment.UAT,
                 List.of(new ContractRepresentation("symbol", "TSLA")),
@@ -122,8 +121,8 @@ class RecordFillUseCaseTest {
                 new CreateAccountForm(AccountName.of("TestAccount2"), TradingEnvironment.SIM)
         );
         var form = new RecordFillForm(
-                TradeId.random(),
-                OrderId.random(),
+                new TradeId(UUID.randomUUID().toString()),
+                new OrderId(UUID.randomUUID().toString()),
                 account.name(),
                 account.tradingEnvironment(),
                 List.of(new ContractRepresentation("symbol", "NONEXISTENT")),
@@ -144,8 +143,8 @@ class RecordFillUseCaseTest {
                 new ContractRepresentations(Map.of("symbol", "MSFT"))
         ));
 
-        var tradeId = TradeId.random();
-        var orderId = OrderId.random();
+        var tradeId = new TradeId(UUID.randomUUID().toString());
+        var orderId = new OrderId(UUID.randomUUID().toString());
 
         var form = new RecordFillForm(
                 tradeId,
