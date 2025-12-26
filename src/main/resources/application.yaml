@@ -1,6 +1,8 @@
 app:
   fixture:
     tags: [ "contract/basic", "fill/basic" ]
+  contract:
+    enable-cleanup: true
 
 spring:
   application:
