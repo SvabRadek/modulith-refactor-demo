@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.account.usecase;
 
-import com.cocroachden.modulithrefactordemo.account.domain.AccountName;
+import com.cocroachden.modulithrefactordemo.account.AccountName;
 import com.cocroachden.modulithrefactordemo.account.event.AccountCreated;
 import com.cocroachden.modulithrefactordemo.account.repository.AccountRepository;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;

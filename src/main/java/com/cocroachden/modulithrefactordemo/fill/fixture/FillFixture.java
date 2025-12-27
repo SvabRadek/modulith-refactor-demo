@@ -1,13 +1,15 @@
 package com.cocroachden.modulithrefactordemo.fill.fixture;
 
-import com.cocroachden.modulithrefactordemo.account.domain.*;
+import com.cocroachden.modulithrefactordemo.account.Account;
+import com.cocroachden.modulithrefactordemo.account.AccountId;
+import com.cocroachden.modulithrefactordemo.account.AccountName;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.ExchangeOrderId;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.Price;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.Qty;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.ExchangeTradeId;
 import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillForm;
 import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillUseCase;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
 import com.cocroachden.modulithrefactordemo.infrastructure.fixture.Fixture;
 import lombok.AllArgsConstructor;

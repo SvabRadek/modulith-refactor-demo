@@ -1,18 +1,15 @@
 package com.cocroachden.modulithrefactordemo.contract.usecase;
 
-import com.cocroachden.modulithrefactordemo.contract.domain.Contract;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
+import com.cocroachden.modulithrefactordemo.contract.Contract;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.event.ContractEdited;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractEntity;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
-import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepresentationEntity;
 import com.cocroachden.modulithrefactordemo.contract.utils.ContractUtils;
 import com.cocroachden.modulithrefactordemo.infrastructure.stereotype.UseCase;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
-
-import java.util.stream.Collectors;
 
 @UseCase
 @AllArgsConstructor

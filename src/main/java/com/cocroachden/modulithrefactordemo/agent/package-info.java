@@ -1,9 +1,9 @@
 @ApplicationModule(
         allowedDependencies = {
                 "infrastructure",
-                "account :: domain",
+                "account",
                 "account :: usecase",
-                "contract :: domain",
+                "contract",
         }
 )
 package com.cocroachden.modulithrefactordemo.agent;

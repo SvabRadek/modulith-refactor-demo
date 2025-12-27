@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.fill.usecase;
 
-import com.cocroachden.modulithrefactordemo.account.domain.AccountName;
+import com.cocroachden.modulithrefactordemo.account.AccountName;
 import com.cocroachden.modulithrefactordemo.account.usecase.CreateAccountForm;
 import com.cocroachden.modulithrefactordemo.account.usecase.CreateAccountUseCase;
 import com.cocroachden.modulithrefactordemo.account.usecase.FillAlreadyExistsException;
@@ -8,8 +8,8 @@ import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnviron
 import com.cocroachden.modulithrefactordemo.fill.event.FillRecorded;
 import com.cocroachden.modulithrefactordemo.account.repository.AccountRepository;
 import com.cocroachden.modulithrefactordemo.fill.repository.FillRepository;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.event.ContractCreated;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
 import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractForm;

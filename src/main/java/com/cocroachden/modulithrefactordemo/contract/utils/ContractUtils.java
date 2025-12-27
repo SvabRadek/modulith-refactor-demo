@@ -1,8 +1,8 @@
 package com.cocroachden.modulithrefactordemo.contract.utils;
 
-import com.cocroachden.modulithrefactordemo.contract.domain.Contract;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
+import com.cocroachden.modulithrefactordemo.contract.Contract;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractEntity;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepresentationEntity;
 

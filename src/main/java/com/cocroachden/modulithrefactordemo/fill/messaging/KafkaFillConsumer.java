@@ -1,9 +1,9 @@
 package com.cocroachden.modulithrefactordemo.fill.messaging;
 
-import com.cocroachden.modulithrefactordemo.account.domain.AccountName;
-import com.cocroachden.modulithrefactordemo.agent.domain.AgentId;
+import com.cocroachden.modulithrefactordemo.account.AccountName;
+import com.cocroachden.modulithrefactordemo.agent.AgentId;
 import com.cocroachden.modulithrefactordemo.agent.query.AgentQuery;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;
 import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillForm;
 import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillUseCase;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.*;

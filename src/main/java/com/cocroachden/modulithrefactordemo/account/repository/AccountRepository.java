@@ -1,7 +1,7 @@
 package com.cocroachden.modulithrefactordemo.account.repository;
 
-import com.cocroachden.modulithrefactordemo.account.domain.AccountId;
-import com.cocroachden.modulithrefactordemo.account.domain.AccountName;
+import com.cocroachden.modulithrefactordemo.account.AccountId;
+import com.cocroachden.modulithrefactordemo.account.AccountName;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;

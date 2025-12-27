@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.agent.usecase;
 
-import com.cocroachden.modulithrefactordemo.agent.domain.AgentId;
+import com.cocroachden.modulithrefactordemo.agent.AgentId;
 
 import java.time.Instant;
 

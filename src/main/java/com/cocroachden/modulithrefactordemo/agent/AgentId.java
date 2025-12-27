@@ -1,4 +1,4 @@
-package com.cocroachden.modulithrefactordemo.agent.domain;
+package com.cocroachden.modulithrefactordemo.agent;
 
 import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntityId;
 

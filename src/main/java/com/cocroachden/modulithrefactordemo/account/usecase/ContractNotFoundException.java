@@ -2,7 +2,7 @@ package com.cocroachden.modulithrefactordemo.account.usecase;
 
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.ExchangeOrderId;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.ExchangeTradeId;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;
 
 import java.util.List;
 

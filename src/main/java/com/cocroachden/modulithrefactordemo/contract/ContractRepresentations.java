@@ -1,12 +1,14 @@
-package com.cocroachden.modulithrefactordemo.contract.domain;
+package com.cocroachden.modulithrefactordemo.contract;
 
 import lombok.AllArgsConstructor;
+import org.jmolecules.ddd.annotation.ValueObject;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+@ValueObject
 @AllArgsConstructor
 public class ContractRepresentations {
     private Map<String, String> representations;

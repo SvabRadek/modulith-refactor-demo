@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.fill.event;
 
-import com.cocroachden.modulithrefactordemo.fill.domain.RecordedFill;
+import com.cocroachden.modulithrefactordemo.fill.RecordedFill;
 
 public record FillRecorded(RecordedFill fill) {
 }

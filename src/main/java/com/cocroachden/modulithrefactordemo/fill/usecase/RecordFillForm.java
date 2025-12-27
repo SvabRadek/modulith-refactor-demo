@@ -1,17 +1,18 @@
 package com.cocroachden.modulithrefactordemo.fill.usecase;
 
-import com.cocroachden.modulithrefactordemo.account.domain.*;
-import com.cocroachden.modulithrefactordemo.agent.domain.AgentId;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
+import com.cocroachden.modulithrefactordemo.account.AccountName;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.ExchangeOrderId;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.Price;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.Qty;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.ExchangeTradeId;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
+import org.jmolecules.ddd.annotation.ValueObject;
 
 import java.util.List;
 import java.util.Objects;
 
+@ValueObject
 public record RecordFillForm(
         ExchangeTradeId tradeId,
         ExchangeOrderId orderId,

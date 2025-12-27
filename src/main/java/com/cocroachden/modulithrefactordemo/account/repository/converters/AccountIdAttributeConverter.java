@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.account.repository.converters;
 
-import com.cocroachden.modulithrefactordemo.account.domain.AccountId;
+import com.cocroachden.modulithrefactordemo.account.AccountId;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

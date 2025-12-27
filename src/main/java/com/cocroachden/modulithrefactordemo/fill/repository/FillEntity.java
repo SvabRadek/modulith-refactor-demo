@@ -1,20 +1,23 @@
 package com.cocroachden.modulithrefactordemo.fill.repository;
 
-import com.cocroachden.modulithrefactordemo.account.domain.AccountId;
-import com.cocroachden.modulithrefactordemo.fill.domain.FillId;
+import com.cocroachden.modulithrefactordemo.account.AccountId;
+import com.cocroachden.modulithrefactordemo.fill.FillId;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.ExchangeOrderId;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.Price;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.Qty;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.ExchangeTradeId;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractId;
+import com.cocroachden.modulithrefactordemo.contract.ContractId;
 import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jmolecules.ddd.annotation.AggregateRoot;
+import org.jmolecules.ddd.annotation.Identity;
 
 import java.time.Instant;
 
+@AggregateRoot
 @NoArgsConstructor
 @Getter
 @Setter
@@ -24,6 +27,7 @@ import java.time.Instant;
 })
 public class FillEntity extends AbstractEntity<FillId> {
 
+    @Identity
     @EmbeddedId
     private FillId id;
 

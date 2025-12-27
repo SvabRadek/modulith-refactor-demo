@@ -1,8 +1,8 @@
 package com.cocroachden.modulithrefactordemo.account.query;
 
-import com.cocroachden.modulithrefactordemo.account.domain.Account;
-import com.cocroachden.modulithrefactordemo.account.domain.AccountId;
-import com.cocroachden.modulithrefactordemo.account.domain.AccountName;
+import com.cocroachden.modulithrefactordemo.account.Account;
+import com.cocroachden.modulithrefactordemo.account.AccountId;
+import com.cocroachden.modulithrefactordemo.account.AccountName;
 import com.cocroachden.modulithrefactordemo.account.repository.AccountRepository;
 import com.cocroachden.modulithrefactordemo.account.utils.AccountUtils;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;

@@ -1,4 +1,4 @@
-package com.cocroachden.modulithrefactordemo.account.domain;
+package com.cocroachden.modulithrefactordemo.account;
 
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
 

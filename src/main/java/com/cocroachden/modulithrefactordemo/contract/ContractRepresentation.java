@@ -1,7 +1,9 @@
-package com.cocroachden.modulithrefactordemo.contract.domain;
+package com.cocroachden.modulithrefactordemo.contract;
 
+import org.jmolecules.ddd.annotation.ValueObject;
 import org.springframework.util.Assert;
 
+@ValueObject
 public record ContractRepresentation(
         String format,
         String value

@@ -1,7 +1,7 @@
 package com.cocroachden.modulithrefactordemo.account.usecase;
 
-import com.cocroachden.modulithrefactordemo.account.domain.Account;
-import com.cocroachden.modulithrefactordemo.account.domain.AccountId;
+import com.cocroachden.modulithrefactordemo.account.Account;
+import com.cocroachden.modulithrefactordemo.account.AccountId;
 import com.cocroachden.modulithrefactordemo.account.event.AccountCreated;
 import com.cocroachden.modulithrefactordemo.account.repository.AccountEntity;
 import com.cocroachden.modulithrefactordemo.account.repository.AccountRepository;

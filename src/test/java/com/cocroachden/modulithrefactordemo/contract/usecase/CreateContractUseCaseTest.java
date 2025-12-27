@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.contract.usecase;
 
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.event.ContractCreated;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
 import com.cocroachden.modulithrefactordemo.contract.utils.ContractUtils;

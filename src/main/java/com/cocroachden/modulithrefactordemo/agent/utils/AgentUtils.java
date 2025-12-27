@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.agent.utils;
 
-import com.cocroachden.modulithrefactordemo.agent.domain.Agent;
+import com.cocroachden.modulithrefactordemo.agent.Agent;
 import com.cocroachden.modulithrefactordemo.agent.repository.AgentEntity;
 
 public class AgentUtils {

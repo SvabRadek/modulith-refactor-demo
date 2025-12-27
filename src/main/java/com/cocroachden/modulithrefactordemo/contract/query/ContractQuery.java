@@ -1,13 +1,14 @@
 package com.cocroachden.modulithrefactordemo.contract.query;
 
-import com.cocroachden.modulithrefactordemo.contract.domain.Contract;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractId;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
+import com.cocroachden.modulithrefactordemo.contract.Contract;
+import com.cocroachden.modulithrefactordemo.contract.ContractId;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
 import com.cocroachden.modulithrefactordemo.contract.utils.ContractUtils;
 import lombok.AllArgsConstructor;
 import org.jmolecules.architecture.onion.simplified.ApplicationRing;
+import org.jmolecules.ddd.annotation.Repository;
 import org.springframework.modulith.NamedInterface;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +17,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-@NamedInterface("query")
-@ApplicationRing
+@Repository
 public class ContractQuery {
 
     private final ContractRepository repository;

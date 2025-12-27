@@ -1,5 +1,5 @@
 @ApplicationModule(
-        allowedDependencies = {"contract :: domain", "contract :: query", "infrastructure", "contract :: usecase"}
+        allowedDependencies = {"contract", "contract :: query", "infrastructure", "contract :: usecase"}
 )
 package com.cocroachden.modulithrefactordemo.account;
 

@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.agent.usecase;
 
-import com.cocroachden.modulithrefactordemo.agent.domain.Agent;
+import com.cocroachden.modulithrefactordemo.agent.Agent;
 import com.cocroachden.modulithrefactordemo.agent.event.AgentHeartbeatUpdated;
 import com.cocroachden.modulithrefactordemo.agent.repository.AgentRepository;
 import com.cocroachden.modulithrefactordemo.agent.utils.AgentUtils;

@@ -1,12 +1,14 @@
-package com.cocroachden.modulithrefactordemo.fill.domain;
+package com.cocroachden.modulithrefactordemo.fill;
 
-import com.cocroachden.modulithrefactordemo.account.domain.AccountId;
+import com.cocroachden.modulithrefactordemo.account.AccountId;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.Price;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.Qty;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractId;
+import com.cocroachden.modulithrefactordemo.contract.ContractId;
+import org.jmolecules.ddd.annotation.ValueObject;
 
 import java.time.Instant;
 
+@ValueObject
 public record RecordedFill(
         FillId id,
         AccountId accountId,

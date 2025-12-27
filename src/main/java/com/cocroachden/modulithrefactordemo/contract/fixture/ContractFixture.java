@@ -1,7 +1,7 @@
 package com.cocroachden.modulithrefactordemo.contract.fixture;
 
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentation;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractForm;
 import com.cocroachden.modulithrefactordemo.contract.query.ContractQuery;
 import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractUseCase;

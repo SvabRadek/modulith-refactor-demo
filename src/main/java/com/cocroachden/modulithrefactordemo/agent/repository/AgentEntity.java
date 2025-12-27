@@ -1,7 +1,7 @@
 package com.cocroachden.modulithrefactordemo.agent.repository;
 
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
-import com.cocroachden.modulithrefactordemo.agent.domain.AgentId;
+import com.cocroachden.modulithrefactordemo.agent.AgentId;
 import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

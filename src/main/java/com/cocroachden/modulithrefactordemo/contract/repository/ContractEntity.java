@@ -1,11 +1,13 @@
 package com.cocroachden.modulithrefactordemo.contract.repository;
 
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractId;
-import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentations;
+import com.cocroachden.modulithrefactordemo.contract.ContractId;
+import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.utils.ContractUtils;
 import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.jmolecules.ddd.annotation.AggregateRoot;
+import org.jmolecules.ddd.annotation.Identity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,8 +19,10 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Setter
 @Getter
+@AggregateRoot
 public class ContractEntity extends AbstractEntity<ContractId> {
 
+    @Identity
     @EmbeddedId
     private ContractId id;
 

@@ -1,4 +1,4 @@
-package com.cocroachden.modulithrefactordemo.account.domain;
+package com.cocroachden.modulithrefactordemo.account;
 
 import org.jspecify.annotations.NonNull;
 import org.springframework.util.Assert;

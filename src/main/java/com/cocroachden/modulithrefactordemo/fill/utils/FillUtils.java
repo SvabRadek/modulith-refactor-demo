@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.fill.utils;
 
-import com.cocroachden.modulithrefactordemo.fill.domain.RecordedFill;
+import com.cocroachden.modulithrefactordemo.fill.RecordedFill;
 import com.cocroachden.modulithrefactordemo.fill.repository.FillEntity;
 
 public class FillUtils {

@@ -1,9 +1,12 @@
-package com.cocroachden.modulithrefactordemo.contract.domain;
+package com.cocroachden.modulithrefactordemo.contract;
 
 import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntityId;
+import org.jmolecules.ddd.annotation.Identity;
+import org.jmolecules.ddd.annotation.ValueObject;
 
 import java.util.UUID;
 
+@ValueObject
 public class ContractId extends AbstractEntityId<UUID> {
     public ContractId(UUID id) {
         super(id);

@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.account.event;
 
-import com.cocroachden.modulithrefactordemo.account.domain.Account;
+import com.cocroachden.modulithrefactordemo.account.Account;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
