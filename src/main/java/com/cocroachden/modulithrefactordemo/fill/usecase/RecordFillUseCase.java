@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 
 import java.time.InstantSource;
-
 @UseCase
 @AllArgsConstructor
 @Slf4j
