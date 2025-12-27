@@ -1,7 +1,7 @@
 package com.cocroachden.modulithrefactordemo.account.usecase;
 
 import com.cocroachden.modulithrefactordemo.account.domain.AccountName;
-import com.cocroachden.modulithrefactordemo.account.domain.TradingEnvironment;
+import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
 
 import java.util.Objects;
 

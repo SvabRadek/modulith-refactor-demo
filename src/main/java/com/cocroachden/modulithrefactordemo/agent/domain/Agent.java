@@ -1,6 +1,6 @@
 package com.cocroachden.modulithrefactordemo.agent.domain;
 
-import com.cocroachden.modulithrefactordemo.account.domain.TradingEnvironment;
+import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
 
 import java.time.Instant;
 

@@ -7,6 +7,7 @@ import com.cocroachden.modulithrefactordemo.contract.domain.ContractRepresentati
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
 import com.cocroachden.modulithrefactordemo.contract.utils.ContractUtils;
 import lombok.AllArgsConstructor;
+import org.springframework.modulith.NamedInterface;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@NamedInterface("query")
 public class ContractQuery {
 
     private final ContractRepository repository;
