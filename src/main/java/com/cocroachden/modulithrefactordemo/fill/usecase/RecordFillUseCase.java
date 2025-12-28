@@ -8,18 +8,16 @@ import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.query.ContractQuery;
 import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractForm;
 import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractUseCase;
-import com.cocroachden.modulithrefactordemo.fill.FillId;
 import com.cocroachden.modulithrefactordemo.fill.RecordedFill;
-import com.cocroachden.modulithrefactordemo.fill.event.FillRecorded;
 import com.cocroachden.modulithrefactordemo.fill.repository.FillEntity;
 import com.cocroachden.modulithrefactordemo.fill.repository.FillRepository;
 import com.cocroachden.modulithrefactordemo.fill.utils.FillUtils;
 import com.cocroachden.modulithrefactordemo.infrastructure.stereotype.UseCase;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
 
 import java.time.InstantSource;
+
 @UseCase
 @AllArgsConstructor
 @Slf4j
@@ -29,7 +27,6 @@ public class RecordFillUseCase {
     private final InstantSource instantSource;
     private final ContractQuery contractQuery;
     private final AccountQuery accountQuery;
-    private final ApplicationEventPublisher publisher;
     private final CreateAccountUseCase createAccountUseCase;
     private final CreateContractUseCase createContractUseCase;
 
@@ -48,16 +45,16 @@ public class RecordFillUseCase {
         var representations = new ContractRepresentations(form.representations());
         var contract = contractQuery.findContract(representations)
                 .orElseGet(() -> createContractUseCase.handle(new CreateContractForm(representations)));
-        var fillEntity = new FillEntity(FillId.random());
-        fillEntity.setAccountId(account.id());
-        fillEntity.setContractId(contract.id());
-        fillEntity.setPrice(form.price());
-        fillEntity.setQty(form.qty());
-        fillEntity.setOrderId(form.orderId());
-        fillEntity.setTradeId(form.tradeId());
-        fillEntity.setRecordedAt(instantSource.instant());
-        var saved = FillUtils.map(fillRepository.save(fillEntity));
-        publisher.publishEvent(new FillRecorded(saved));
-        return saved;
+        var newFill = FillEntity.record(
+                account.id(),
+                form.tradeId(),
+                form.orderId(),
+                contract.id(),
+                form.price(),
+                form.qty(),
+                instantSource.instant()
+        );
+        var saved = fillRepository.save(newFill);
+        return FillUtils.map(saved);
     }
 }

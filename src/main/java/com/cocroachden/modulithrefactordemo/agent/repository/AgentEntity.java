@@ -33,6 +33,10 @@ public class AgentEntity extends AbstractEntity<AgentId> {
     @Enumerated(EnumType.STRING)
     private TradingEnvironment tradingEnvironment;
 
+    private AgentEntity(AgentId id) {
+        this.id = id;
+    }
+
     public static AgentEntity register(
             AgentId id,
             TradingEnvironment tradingEnvironment,
@@ -43,10 +47,6 @@ public class AgentEntity extends AbstractEntity<AgentId> {
         entity.setLastHeartbeat(instant);
         entity.registerEvent(new AgentRegistered(AgentUtils.map(entity)));
         return entity;
-    }
-
-    private AgentEntity(AgentId id) {
-        this.id = id;
     }
 
     public AgentEntity updateHeartbeat(Instant lastHeartbeat) {

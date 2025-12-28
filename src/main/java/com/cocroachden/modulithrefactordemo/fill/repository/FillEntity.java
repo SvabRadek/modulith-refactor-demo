@@ -2,6 +2,8 @@ package com.cocroachden.modulithrefactordemo.fill.repository;
 
 import com.cocroachden.modulithrefactordemo.account.AccountId;
 import com.cocroachden.modulithrefactordemo.fill.FillId;
+import com.cocroachden.modulithrefactordemo.fill.event.FillRecorded;
+import com.cocroachden.modulithrefactordemo.fill.utils.FillUtils;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.ExchangeOrderId;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.Price;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.Qty;
@@ -31,10 +33,6 @@ public class FillEntity extends AbstractEntity<FillId> {
     @EmbeddedId
     private FillId id;
 
-    public FillEntity(FillId id) {
-        this.id = id;
-    }
-
     private AccountId accountId;
 
     @Embedded
@@ -56,4 +54,29 @@ public class FillEntity extends AbstractEntity<FillId> {
     private Qty qty;
 
     private Instant recordedAt;
+
+    private FillEntity(FillId id) {
+        this.id = id;
+    }
+
+    public static FillEntity record(
+            AccountId accountId,
+            ExchangeTradeId tradeId,
+            ExchangeOrderId orderId,
+            ContractId contractId,
+            Price price,
+            Qty qty,
+            Instant recordedAt
+    ) {
+        var entity = new FillEntity(FillId.random());
+        entity.accountId = accountId;
+        entity.tradeId = tradeId;
+        entity.orderId = orderId;
+        entity.contractId = contractId;
+        entity.price = price;
+        entity.qty = qty;
+        entity.recordedAt = recordedAt;
+        entity.registerEvent(new FillRecorded(FillUtils.map(entity)));
+        return entity;
+    }
 }
