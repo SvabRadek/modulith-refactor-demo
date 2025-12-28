@@ -2,6 +2,8 @@ package com.cocroachden.modulithrefactordemo.account.repository;
 
 import com.cocroachden.modulithrefactordemo.account.AccountId;
 import com.cocroachden.modulithrefactordemo.account.AccountName;
+import com.cocroachden.modulithrefactordemo.account.event.AccountCreated;
+import com.cocroachden.modulithrefactordemo.account.utils.AccountUtils;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
 import com.cocroachden.modulithrefactordemo.infrastructure.repository.AbstractEntity;
 import jakarta.persistence.*;
@@ -26,7 +28,15 @@ public class AccountEntity extends AbstractEntity<AccountId> {
     @Enumerated(EnumType.STRING)
     private TradingEnvironment tradingEnvironment;
 
-    public AccountEntity(AccountId id) {
+    private AccountEntity(AccountId id) {
         this.id = id;
+    }
+
+    public static AccountEntity create(AccountId id, AccountName name, TradingEnvironment tradingEnvironment) {
+        var entity = new AccountEntity(id);
+        entity.setName(name);
+        entity.setTradingEnvironment(tradingEnvironment);
+        entity.registerEvent(new AccountCreated(AccountUtils.map(entity)));
+        return entity;
     }
 }

@@ -1,8 +1,10 @@
 package com.cocroachden.modulithrefactordemo.account;
 
+import org.jmolecules.ddd.annotation.ValueObject;
 import org.jspecify.annotations.NonNull;
 import org.springframework.util.Assert;
 
+@ValueObject
 public record AccountName(String value) {
     public AccountName {
         Assert.notNull(value, "Name cannot be null!");

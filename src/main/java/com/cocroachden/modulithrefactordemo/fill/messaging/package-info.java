@@ -1,4 +1,4 @@
-@InfrastructureRing
+@InterfaceLayer
 package com.cocroachden.modulithrefactordemo.fill.messaging;
 
-import org.jmolecules.architecture.onion.simplified.InfrastructureRing;
+import org.jmolecules.architecture.layered.InterfaceLayer;

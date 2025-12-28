@@ -1,4 +1,4 @@
-@DomainRing
+@DomainLayer
 package com.cocroachden.modulithrefactordemo.account.repository;
 
-import org.jmolecules.architecture.onion.simplified.DomainRing;
+import org.jmolecules.architecture.layered.DomainLayer;

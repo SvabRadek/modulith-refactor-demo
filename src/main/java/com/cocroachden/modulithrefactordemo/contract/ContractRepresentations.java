@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-@ValueObject
 @AllArgsConstructor
 public class ContractRepresentations {
     private Map<String, String> representations;

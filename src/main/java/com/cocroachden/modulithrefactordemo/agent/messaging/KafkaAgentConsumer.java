@@ -1,8 +1,11 @@
 package com.cocroachden.modulithrefactordemo.agent.messaging;
 
 import com.cocroachden.modulithrefactordemo.agent.AgentId;
-import com.cocroachden.modulithrefactordemo.agent.repository.AgentRepository;
-import com.cocroachden.modulithrefactordemo.agent.usecase.*;
+import com.cocroachden.modulithrefactordemo.agent.query.AgentQuery;
+import com.cocroachden.modulithrefactordemo.agent.usecase.RegisterAgentForm;
+import com.cocroachden.modulithrefactordemo.agent.usecase.RegisterAgentUseCase;
+import com.cocroachden.modulithrefactordemo.agent.usecase.UpdateAgentHeartbeatUseCase;
+import com.cocroachden.modulithrefactordemo.agent.usecase.UpdateHeartbeatForm;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,11 +16,11 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class KafkaConsumer {
+public class KafkaAgentConsumer {
 
     private final RegisterAgentUseCase registerAgentUseCase;
     private final UpdateAgentHeartbeatUseCase updateAgentHeartbeatUseCase;
-    private final AgentRepository agentRepository;
+    private final AgentQuery agentQuery;
 
     private final List<AgentId> agents = List.of(AgentId.random(), AgentId.random());
 
@@ -29,10 +32,11 @@ public class KafkaConsumer {
 
     void onMessage(AgentId agentId, String message) {
         if (message.contains("heartbeat")) {
-            if (agentRepository.existsById(agentId)) {
-                updateAgentHeartbeatUseCase.handle(new UpdateHeartbeatForm(agentId, Instant.now()));
-            } else {
+            var agent = agentQuery.findById(agentId);
+            if (agent.isEmpty()) {
                 registerAgentUseCase.handle(new RegisterAgentForm(agentId, TradingEnvironment.LIVE));
+            } else {
+                updateAgentHeartbeatUseCase.handle(new UpdateHeartbeatForm(agentId, Instant.now()));
             }
         }
     }

@@ -1,6 +1,6 @@
 @NamedInterface("usecase")
-@ApplicationRing
+@ApplicationLayer
 package com.cocroachden.modulithrefactordemo.fill.usecase;
 
-import org.jmolecules.architecture.onion.simplified.ApplicationRing;
+import org.jmolecules.architecture.layered.ApplicationLayer;
 import org.springframework.modulith.NamedInterface;

@@ -12,7 +12,6 @@ import org.jmolecules.ddd.annotation.ValueObject;
 import java.util.List;
 import java.util.Objects;
 
-@ValueObject
 public record RecordFillForm(
         ExchangeTradeId tradeId,
         ExchangeOrderId orderId,

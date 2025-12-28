@@ -1,8 +1,10 @@
 package com.cocroachden.modulithrefactordemo;
 
+import org.jmolecules.archunit.JMoleculesArchitectureRules;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.modulith.core.ApplicationModules;
+import org.springframework.modulith.core.VerificationOptions;
 import org.springframework.modulith.docs.Documenter;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -14,7 +16,10 @@ class RedisDemoApplicationTests {
 
     @Test
     public void verifyApplicationModule() {
-        modules.verify();
+        var layered = JMoleculesArchitectureRules.ensureLayeringStrict();
+        var options = VerificationOptions.defaults()
+                .withAdditionalVerifications(layered);
+        modules.verify(options);
     }
 
     @Test

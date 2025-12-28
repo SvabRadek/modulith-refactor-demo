@@ -1,6 +1,7 @@
 package com.cocroachden.modulithrefactordemo.infrastructure.repository;
 
 import jakarta.persistence.MappedSuperclass;
+import org.jmolecules.ddd.types.Identifier;
 
 import java.io.Serializable;
 import java.util.Objects;

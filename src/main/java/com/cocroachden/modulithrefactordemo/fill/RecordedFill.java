@@ -8,7 +8,6 @@ import org.jmolecules.ddd.annotation.ValueObject;
 
 import java.time.Instant;
 
-@ValueObject
 public record RecordedFill(
         FillId id,
         AccountId accountId,

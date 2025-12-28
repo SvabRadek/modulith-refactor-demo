@@ -95,7 +95,12 @@
         </dependency>
         <dependency>
             <groupId>org.jmolecules</groupId>
-            <artifactId>jmolecules-onion-architecture</artifactId>
+            <artifactId>jmolecules-layered-architecture</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jmolecules.integrations</groupId>
+            <artifactId>jmolecules-starter-test</artifactId>
+            <version>0.33.0</version>
         </dependency>
     </dependencies>
     <dependencyManagement>

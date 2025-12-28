@@ -3,11 +3,13 @@ package com.cocroachden.modulithrefactordemo.contract.repository;
 import com.cocroachden.modulithrefactordemo.contract.ContractId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.Set;
 
+@Repository
 public interface ContractRepository extends JpaRepository<ContractEntity, ContractId> {
 
     @Transactional(readOnly = true)

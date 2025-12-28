@@ -1,4 +1,4 @@
-@ApplicationRing
+@ApplicationLayer
 package com.cocroachden.modulithrefactordemo.audit.usecase;
 
-import org.jmolecules.architecture.onion.simplified.ApplicationRing;
+import org.jmolecules.architecture.layered.ApplicationLayer;
