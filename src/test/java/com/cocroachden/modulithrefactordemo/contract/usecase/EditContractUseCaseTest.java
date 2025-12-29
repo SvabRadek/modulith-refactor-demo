@@ -36,10 +36,10 @@ class EditContractUseCaseTest {
 
     @Test
     void itCanEditContract() {
-        var createForm = new CreateContractForm(new ContractRepresentations(Map.of("symbol", "AAPL")));
+        var createForm = new CreateContractCommand(new ContractRepresentations(Map.of("symbol", "AAPL")));
         var contract = createContractUseCase.handle(createForm);
 
-        var editForm = new EditContractForm(
+        var editForm = new EditContractCommand(
                 contract.id(),
                 new ContractRepresentations(Map.of("symbol", "TSLA", "exchange", "NASDAQ"))
         );
@@ -55,10 +55,10 @@ class EditContractUseCaseTest {
     @Test
     @Transactional
     void itUpdatesContractInDatabase() {
-        var createForm = new CreateContractForm(new ContractRepresentations(Map.of("type", "STOCK")));
+        var createForm = new CreateContractCommand(new ContractRepresentations(Map.of("type", "STOCK")));
         var contract = createContractUseCase.handle(createForm);
 
-        var editForm = new EditContractForm(
+        var editForm = new EditContractCommand(
                 contract.id(),
                 new ContractRepresentations(Map.of("type", "OPTION", "strike", "150"))
         );
@@ -73,7 +73,7 @@ class EditContractUseCaseTest {
 
     @Test
     void itThrowsExceptionWhenContractNotFound() {
-        var editForm = new EditContractForm(
+        var editForm = new EditContractCommand(
                 ContractId.random(),
                 new ContractRepresentations(Map.of("symbol", "GOOGL"))
         );
@@ -84,14 +84,14 @@ class EditContractUseCaseTest {
 
     @Test
     void itCanReplaceAllRepresentations() {
-        var createForm = new CreateContractForm(new ContractRepresentations(Map.of(
+        var createForm = new CreateContractCommand(new ContractRepresentations(Map.of(
                 "symbol", "AMD",
                 "exchange", "NASDAQ",
                 "type", "STOCK"
         )));
         var contract = createContractUseCase.handle(createForm);
 
-        var editForm = new EditContractForm(
+        var editForm = new EditContractCommand(
                 contract.id(),
                 new ContractRepresentations(Map.of("newField", "newValue"))
         );

@@ -11,15 +11,19 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jmolecules.ddd.annotation.AggregateRoot;
+import org.jmolecules.ddd.annotation.Identity;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
 @Entity
 @Table(name = "account", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "trading_environment"}))
+@AggregateRoot
 public class AccountEntity extends AbstractEntity<AccountId> {
 
     @EmbeddedId
+    @Identity
     private AccountId id;
 
     @Embedded

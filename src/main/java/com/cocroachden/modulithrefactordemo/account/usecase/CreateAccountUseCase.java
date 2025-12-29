@@ -14,15 +14,15 @@ public class CreateAccountUseCase {
 
     private final AccountRepository accountRepository;
 
-    public Account handle(CreateAccountForm form) throws AccountAlreadyExists {
+    public Account handle(CreateAccountCommand command) throws AccountAlreadyExists {
         var accountId = AccountId.random();
-        if (accountRepository.existsByNameAndTradingEnvironment(form.name(), form.tradingEnvironment())) {
-            throw new AccountAlreadyExists(form.name(), form.tradingEnvironment());
+        if (accountRepository.existsByNameAndTradingEnvironment(command.name(), command.tradingEnvironment())) {
+            throw new AccountAlreadyExists(command.name(), command.tradingEnvironment());
         }
         var newAccount = AccountEntity.create(
                 accountId,
-                form.name(),
-                form.tradingEnvironment()
+                command.name(),
+                command.tradingEnvironment()
         );
         var saved = accountRepository.save(newAccount);
         return AccountUtils.map(saved);

@@ -25,7 +25,7 @@ class RegisterAgentUseCaseTest {
     public void itCanRegisterAgent(Scenario scenario) {
         scenario.stimulate(() -> {
                     registerAgentUseCase.handle(
-                            new RegisterAgentForm(AgentId.random(), TradingEnvironment.LIVE)
+                            new RegisterAgentCommand(AgentId.random(), TradingEnvironment.LIVE)
                     );
                 }).forEventOfType(AgentRegistered.class)
                 .toArrive();

@@ -2,10 +2,10 @@ package com.cocroachden.modulithrefactordemo.agent.messaging;
 
 import com.cocroachden.modulithrefactordemo.agent.AgentId;
 import com.cocroachden.modulithrefactordemo.agent.query.AgentQuery;
-import com.cocroachden.modulithrefactordemo.agent.usecase.RegisterAgentForm;
+import com.cocroachden.modulithrefactordemo.agent.usecase.RegisterAgentCommand;
 import com.cocroachden.modulithrefactordemo.agent.usecase.RegisterAgentUseCase;
 import com.cocroachden.modulithrefactordemo.agent.usecase.UpdateAgentHeartbeatUseCase;
-import com.cocroachden.modulithrefactordemo.agent.usecase.UpdateHeartbeatForm;
+import com.cocroachden.modulithrefactordemo.agent.usecase.UpdateHeartbeatCommand;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -34,9 +34,9 @@ public class KafkaAgentConsumer {
         if (message.contains("heartbeat")) {
             var agent = agentQuery.findById(agentId);
             if (agent.isEmpty()) {
-                registerAgentUseCase.handle(new RegisterAgentForm(agentId, TradingEnvironment.LIVE));
+                registerAgentUseCase.handle(new RegisterAgentCommand(agentId, TradingEnvironment.LIVE));
             } else {
-                updateAgentHeartbeatUseCase.handle(new UpdateHeartbeatForm(agentId, Instant.now()));
+                updateAgentHeartbeatUseCase.handle(new UpdateHeartbeatCommand(agentId, Instant.now()));
             }
         }
     }

@@ -5,11 +5,11 @@ import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnviron
 
 import java.util.Objects;
 
-public record CreateAccountForm(
+public record CreateAccountCommand(
         AccountName name,
         TradingEnvironment tradingEnvironment
 ) {
-    public CreateAccountForm {
+    public CreateAccountCommand {
         Objects.requireNonNull(name, "Account name cannot be null!");
         Objects.requireNonNull(tradingEnvironment, "Trading environment cannot be null!");
     }

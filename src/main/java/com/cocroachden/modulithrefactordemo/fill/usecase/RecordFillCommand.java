@@ -7,12 +7,11 @@ import com.cocroachden.modulithrefactordemo.infrastructure.domain.Price;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.Qty;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.ExchangeTradeId;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
-import org.jmolecules.ddd.annotation.ValueObject;
 
 import java.util.List;
 import java.util.Objects;
 
-public record RecordFillForm(
+public record RecordFillCommand(
         ExchangeTradeId tradeId,
         ExchangeOrderId orderId,
         AccountName accountName,
@@ -21,7 +20,7 @@ public record RecordFillForm(
         Price price,
         Qty qty
 ) {
-    public RecordFillForm {
+    public RecordFillCommand {
         Objects.requireNonNull(tradeId, "TradeId cannot be null!");
         Objects.requireNonNull(orderId, "OrderId cannot be null!");
         Objects.requireNonNull(accountName, "AccountName cannot be null!");

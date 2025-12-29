@@ -22,9 +22,9 @@ class MergeContractUseCaseTest {
 
     @Test
     void itCanMergeContracts() {
-        var form1 = new MergeContractForm(new ContractRepresentations(Map.of("format", "value")));
+        var form1 = new MergeContractCommand(new ContractRepresentations(Map.of("format", "value")));
         mergeContractUseCase.handle(form1);
-        var form2 = new MergeContractForm(new ContractRepresentations(Map.of("format", "value", "format2", "value2")));
+        var form2 = new MergeContractCommand(new ContractRepresentations(Map.of("format", "value", "format2", "value2")));
         var mergedContract = mergeContractUseCase.handle(form2);
 
         Assertions.assertThat(mergedContract.representations().getRaw())
@@ -34,8 +34,8 @@ class MergeContractUseCaseTest {
 
     @Test
     void itCanMergeOverwriteContracts() {
-        var form1 = new MergeContractForm(new ContractRepresentations(Map.of("A", "A", "B", "B")));
-        var form2 = new MergeContractForm(new ContractRepresentations(Map.of("A", "A", "B", "Z")));
+        var form1 = new MergeContractCommand(new ContractRepresentations(Map.of("A", "A", "B", "B")));
+        var form2 = new MergeContractCommand(new ContractRepresentations(Map.of("A", "A", "B", "Z")));
         mergeContractUseCase.handle(form1);
         Assertions.assertThat(contractRepository.findByRepresentation("B", "B")).isPresent();
         mergeContractUseCase.handle(form2);

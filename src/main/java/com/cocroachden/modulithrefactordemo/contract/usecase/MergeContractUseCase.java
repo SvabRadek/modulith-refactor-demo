@@ -14,14 +14,14 @@ public class MergeContractUseCase {
 
     private final ContractRepository contractRepository;
 
-    public Contract handle(MergeContractForm form) {
+    public Contract handle(MergeContractCommand command) {
         var mergedContract = contractRepository.findByRepresentations(
-                ContractUtils.map(form.representations())
+                ContractUtils.map(command.representations())
         ).map(c -> {
-            var merged = ContractUtils.map(c).representations().putAll(form.representations());
+            var merged = ContractUtils.map(c).representations().putAll(command.representations());
             return contractRepository.save(c.editRepresentations(merged));
         }).orElseGet(() -> {
-            var newContract = ContractEntity.create(ContractId.random(), form.representations());
+            var newContract = ContractEntity.create(ContractId.random(), command.representations());
             return contractRepository.save(newContract);
         });
         return ContractUtils.map(mergedContract);

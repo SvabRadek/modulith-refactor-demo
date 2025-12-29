@@ -34,7 +34,7 @@ class CreateContractUseCaseTest {
 
     @Test
     void itCanCreateContract(Scenario scenario) {
-        var form = new CreateContractForm(new ContractRepresentations(Map.of("format", "value")));
+        var form = new CreateContractCommand(new ContractRepresentations(Map.of("format", "value")));
         scenario.stimulate(() -> createContractUseCase.handle(form))
                 .forEventOfType(ContractCreated.class)
                 .toArriveAndVerify(event -> {
@@ -46,7 +46,7 @@ class CreateContractUseCaseTest {
     @Test
     @Transactional
     void itSavesContractToDatabase() {
-        var form = new CreateContractForm(new ContractRepresentations(Map.of("symbol", "AAPL")));
+        var form = new CreateContractCommand(new ContractRepresentations(Map.of("symbol", "AAPL")));
         var contract = createContractUseCase.handle(form);
 
         var contractFromDb = contractRepository.findById(contract.id());
@@ -58,7 +58,7 @@ class CreateContractUseCaseTest {
     @Test
     @Transactional
     void itCanCreateContractWithMultipleRepresentations(Scenario scenario) {
-        var form = new CreateContractForm(new ContractRepresentations(Map.of(
+        var form = new CreateContractCommand(new ContractRepresentations(Map.of(
                 "symbol", "TSLA",
                 "exchange", "NASDAQ",
                 "type", "STOCK"

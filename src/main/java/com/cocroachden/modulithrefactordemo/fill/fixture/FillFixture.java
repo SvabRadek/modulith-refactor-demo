@@ -7,7 +7,7 @@ import com.cocroachden.modulithrefactordemo.infrastructure.domain.ExchangeOrderI
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.Price;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.Qty;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.ExchangeTradeId;
-import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillForm;
+import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillCommand;
 import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillUseCase;
 import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
@@ -43,7 +43,7 @@ public class FillFixture implements Fixture {
 
         for (int i = 0; i < FILL_COUNT; i++) {
             recordFillUseCase.handle(
-                    new RecordFillForm(
+                    new RecordFillCommand(
                             new ExchangeTradeId(UUID.randomUUID().toString()),
                             new ExchangeOrderId(UUID.randomUUID().toString()),
                             accounts.get(i % accounts.size()).name(),

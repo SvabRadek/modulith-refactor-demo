@@ -16,10 +16,10 @@ public class RegisterAgentUseCase {
     private final AgentRepository agentRepository;
     private final InstantSource instantSource;
 
-    public Agent handle(RegisterAgentForm form) {
+    public Agent handle(RegisterAgentCommand command) {
         var saved = agentRepository.save(AgentEntity.register(
-                form.agentId(),
-                form.tradingEnvironment(),
+                command.agentId(),
+                command.tradingEnvironment(),
                 instantSource.instant()
         ));
         return AgentUtils.map(saved);

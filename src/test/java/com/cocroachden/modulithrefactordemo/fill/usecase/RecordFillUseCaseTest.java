@@ -1,9 +1,8 @@
 package com.cocroachden.modulithrefactordemo.fill.usecase;
 
 import com.cocroachden.modulithrefactordemo.account.AccountName;
-import com.cocroachden.modulithrefactordemo.account.usecase.CreateAccountForm;
+import com.cocroachden.modulithrefactordemo.account.usecase.CreateAccountCommand;
 import com.cocroachden.modulithrefactordemo.account.usecase.CreateAccountUseCase;
-import com.cocroachden.modulithrefactordemo.account.usecase.FillAlreadyExistsException;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
 import com.cocroachden.modulithrefactordemo.fill.event.FillRecorded;
 import com.cocroachden.modulithrefactordemo.account.repository.AccountRepository;
@@ -12,7 +11,7 @@ import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;
 import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.event.ContractCreated;
 import com.cocroachden.modulithrefactordemo.contract.repository.ContractRepository;
-import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractForm;
+import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractCommand;
 import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractUseCase;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.ExchangeOrderId;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.Price;
@@ -67,12 +66,12 @@ class RecordFillUseCaseTest {
 
     @Test
     void itCanRecordFill(Scenario scenario) {
-        var account = createAccountUseCase.handle(new CreateAccountForm(AccountName.of("TestAccount"), TradingEnvironment.SIM));
-        var contract = createContractUseCase.handle(new CreateContractForm(
+        var account = createAccountUseCase.handle(new CreateAccountCommand(AccountName.of("TestAccount"), TradingEnvironment.SIM));
+        var contract = createContractUseCase.handle(new CreateContractCommand(
                 new ContractRepresentations(Map.of("TT", "AAPL"))
         ));
 
-        var form = new RecordFillForm(
+        var form = new RecordFillCommand(
                 new ExchangeTradeId(UUID.randomUUID().toString()),
                 new ExchangeOrderId(UUID.randomUUID().toString()),
                 account.name(),
@@ -96,11 +95,11 @@ class RecordFillUseCaseTest {
 
     @Test
     void itCreatesAccountAutomaticallyIfNotExists() {
-        createContractUseCase.handle(new CreateContractForm(
+        createContractUseCase.handle(new CreateContractCommand(
                 new ContractRepresentations(Map.of("symbol", "TSLA"))
         ));
 
-        var form = new RecordFillForm(
+        var form = new RecordFillCommand(
                 new ExchangeTradeId(UUID.randomUUID().toString()),
                 new ExchangeOrderId(UUID.randomUUID().toString()),
                 AccountName.of("AutoCreatedAccount"),
@@ -121,9 +120,9 @@ class RecordFillUseCaseTest {
     @Test
     void itCreatesNewWhenContractNotFound(Scenario scenario) {
         var account = createAccountUseCase.handle(
-                new CreateAccountForm(AccountName.of("TestAccount2"), TradingEnvironment.SIM)
+                new CreateAccountCommand(AccountName.of("TestAccount2"), TradingEnvironment.SIM)
         );
-        var form = new RecordFillForm(
+        var form = new RecordFillCommand(
                 new ExchangeTradeId(UUID.randomUUID().toString()),
                 new ExchangeOrderId(UUID.randomUUID().toString()),
                 account.name(),
@@ -141,15 +140,15 @@ class RecordFillUseCaseTest {
 
     @Test
     void itThrowsExceptionWhenDuplicateFill() {
-        var account = createAccountUseCase.handle(new CreateAccountForm(AccountName.of("TestAccount3"), TradingEnvironment.LIVE));
-        createContractUseCase.handle(new CreateContractForm(
+        var account = createAccountUseCase.handle(new CreateAccountCommand(AccountName.of("TestAccount3"), TradingEnvironment.LIVE));
+        createContractUseCase.handle(new CreateContractCommand(
                 new ContractRepresentations(Map.of("symbol", "MSFT"))
         ));
 
         var tradeId = new ExchangeTradeId(UUID.randomUUID().toString());
         var orderId = new ExchangeOrderId(UUID.randomUUID().toString());
 
-        var form = new RecordFillForm(
+        var form = new RecordFillCommand(
                 tradeId,
                 orderId,
                 account.name(),

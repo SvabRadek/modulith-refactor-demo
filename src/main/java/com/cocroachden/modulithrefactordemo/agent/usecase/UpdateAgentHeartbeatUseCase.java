@@ -12,12 +12,12 @@ public class UpdateAgentHeartbeatUseCase {
 
     private final AgentRepository agentRepository;
 
-    public Agent handle(UpdateHeartbeatForm form) {
-        return agentRepository.findById(form.agentId())
-                .map(entity -> entity.updateHeartbeat(form.instant()))
+    public Agent handle(UpdateHeartbeatCommand command) {
+        return agentRepository.findById(command.agentId())
+                .map(entity -> entity.updateHeartbeat(command.instant()))
                 .map(agentRepository::save)
                 .map(AgentUtils::map)
-                .orElseThrow(() -> new AgentNotFoundException(form.agentId()));
+                .orElseThrow(() -> new AgentNotFoundException(command.agentId()));
     }
 
 }

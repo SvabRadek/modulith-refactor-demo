@@ -14,8 +14,8 @@ public class CreateContractUseCase {
 
     private final ContractRepository contractRepository;
 
-    public Contract handle(CreateContractForm form) {
-        var contract = ContractEntity.create(ContractId.random(), form.representations());
+    public Contract handle(CreateContractCommand command) {
+        var contract = ContractEntity.create(ContractId.random(), command.representations());
         var saved = contractRepository.save(contract);
         return ContractUtils.map(saved);
     }

@@ -1,6 +1,7 @@
 package com.cocroachden.modulithrefactordemo;
 
 import org.jmolecules.archunit.JMoleculesArchitectureRules;
+import org.jmolecules.archunit.JMoleculesDddRules;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.modulith.core.ApplicationModules;
@@ -16,18 +17,25 @@ class RedisDemoApplicationTests {
 
     @Test
     public void verifyApplicationModule() {
-        var layered = JMoleculesArchitectureRules.ensureLayeringStrict();
         var options = VerificationOptions.defaults()
-                .withAdditionalVerifications(layered);
+                .withAdditionalVerifications(JMoleculesArchitectureRules.ensureLayeringStrict())
+                .withAdditionalVerifications(JMoleculesDddRules.all());
         modules.verify(options);
     }
 
     @Test
     public void generateDocumentation() {
+//        new Documenter(modules)
+//                .writeModuleCanvases()
+//                .writeModulesAsPlantUml()
+//                .writeIndividualModulesAsPlantUml()
+//                .writeDocumentation(
+//                        Documenter.DiagramOptions.defaults().withStyle(Documenter.DiagramOptions.DiagramStyle.C4), Documenter.CanvasOptions.defaults())
+//                .writeAggregatingDocument();
+
         new Documenter(modules)
-                .writeModuleCanvases()
-                .writeModulesAsPlantUml()
-                .writeIndividualModulesAsPlantUml()
-                .writeAggregatingDocument();
+                .writeDocumentation(
+                        Documenter.DiagramOptions.defaults().withStyle(Documenter.DiagramOptions.DiagramStyle.C4), Documenter.CanvasOptions.defaults()
+                );
     }
 }

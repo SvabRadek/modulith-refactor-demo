@@ -4,7 +4,7 @@ import com.cocroachden.modulithrefactordemo.account.AccountName;
 import com.cocroachden.modulithrefactordemo.agent.AgentId;
 import com.cocroachden.modulithrefactordemo.agent.query.AgentQuery;
 import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;
-import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillForm;
+import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillCommand;
 import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillUseCase;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.*;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class KafkaFillConsumer {
             // warn that trading environment is wrong
         }
 
-        recordFillUseCase.handle(new RecordFillForm(
+        recordFillUseCase.handle(new RecordFillCommand(
                 new ExchangeTradeId(UUID.randomUUID().toString()),
                 new ExchangeOrderId(UUID.randomUUID().toString()),
                 new AccountName("Account1"),

@@ -4,7 +4,7 @@ import com.cocroachden.modulithrefactordemo.agent.AgentId;
 
 import java.time.Instant;
 
-public record UpdateHeartbeatForm(
+public record UpdateHeartbeatCommand(
         AgentId agentId,
         Instant instant
 ) {

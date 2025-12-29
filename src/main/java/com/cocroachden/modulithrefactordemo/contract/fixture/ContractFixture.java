@@ -2,12 +2,13 @@ package com.cocroachden.modulithrefactordemo.contract.fixture;
 
 import com.cocroachden.modulithrefactordemo.contract.ContractRepresentation;
 import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
-import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractForm;
 import com.cocroachden.modulithrefactordemo.contract.query.ContractQuery;
+import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractCommand;
 import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractUseCase;
 import com.cocroachden.modulithrefactordemo.infrastructure.fixture.Fixture;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jmolecules.architecture.layered.InterfaceLayer;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -15,6 +16,7 @@ import java.time.Duration;
 @Service
 @AllArgsConstructor
 @Slf4j
+@InterfaceLayer
 public class ContractFixture implements Fixture {
 
     public static final int CONTRACT_NUM = 16000;
@@ -39,7 +41,7 @@ public class ContractFixture implements Fixture {
             }
             if (exists.isEmpty()) {
                 createContractUseCase.handle(
-                        new CreateContractForm(new ContractRepresentations(a, b, c))
+                        new CreateContractCommand(new ContractRepresentations(a, b, c))
                 );
             }
         }

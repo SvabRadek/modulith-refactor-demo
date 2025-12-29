@@ -1,12 +1,11 @@
 package com.cocroachden.modulithrefactordemo.fill.usecase;
 
 import com.cocroachden.modulithrefactordemo.account.query.AccountQuery;
-import com.cocroachden.modulithrefactordemo.account.usecase.CreateAccountForm;
+import com.cocroachden.modulithrefactordemo.account.usecase.CreateAccountCommand;
 import com.cocroachden.modulithrefactordemo.account.usecase.CreateAccountUseCase;
-import com.cocroachden.modulithrefactordemo.account.usecase.FillAlreadyExistsException;
 import com.cocroachden.modulithrefactordemo.contract.ContractRepresentations;
 import com.cocroachden.modulithrefactordemo.contract.query.ContractQuery;
-import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractForm;
+import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractCommand;
 import com.cocroachden.modulithrefactordemo.contract.usecase.CreateContractUseCase;
 import com.cocroachden.modulithrefactordemo.fill.RecordedFill;
 import com.cocroachden.modulithrefactordemo.fill.repository.FillEntity;
@@ -30,28 +29,28 @@ public class RecordFillUseCase {
     private final CreateAccountUseCase createAccountUseCase;
     private final CreateContractUseCase createContractUseCase;
 
-    public RecordedFill handle(RecordFillForm form) throws FillAlreadyExistsException {
-        log.info("Recording fill {}", form.tradeId());
-        if (fillRepository.existsByTradeIdAndOrderId(form.tradeId(), form.orderId())) {
-            throw new FillAlreadyExistsException(form.tradeId(), form.orderId());
+    public RecordedFill handle(RecordFillCommand command) throws FillAlreadyExistsException {
+        log.info("Recording fill {}", command.tradeId());
+        if (fillRepository.existsByTradeIdAndOrderId(command.tradeId(), command.orderId())) {
+            throw new FillAlreadyExistsException(command.tradeId(), command.orderId());
         }
-        var account = accountQuery.findByName(form.accountName(), form.tradingEnvironment())
+        var account = accountQuery.findByName(command.accountName(), command.tradingEnvironment())
                 .orElseGet(() -> createAccountUseCase.handle(
-                        new CreateAccountForm(
-                                form.accountName(),
-                                form.tradingEnvironment()
+                        new CreateAccountCommand(
+                                command.accountName(),
+                                command.tradingEnvironment()
                         )
                 ));
-        var representations = new ContractRepresentations(form.representations());
+        var representations = new ContractRepresentations(command.representations());
         var contract = contractQuery.findContract(representations)
-                .orElseGet(() -> createContractUseCase.handle(new CreateContractForm(representations)));
+                .orElseGet(() -> createContractUseCase.handle(new CreateContractCommand(representations)));
         var newFill = FillEntity.record(
                 account.id(),
-                form.tradeId(),
-                form.orderId(),
+                command.tradeId(),
+                command.orderId(),
                 contract.id(),
-                form.price(),
-                form.qty(),
+                command.price(),
+                command.qty(),
                 instantSource.instant()
         );
         var saved = fillRepository.save(newFill);

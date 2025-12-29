@@ -16,12 +16,12 @@ public class EditContractUseCase {
 
     private final ContractRepository contractRepository;
 
-    public Contract handle(EditContractForm form) throws ContractNotFound {
-        return contractRepository.findById(form.id())
-                .map(entity -> entity.editRepresentations(form.representations()))
+    public Contract handle(EditContractCommand command) throws ContractNotFound {
+        return contractRepository.findById(command.id())
+                .map(entity -> entity.editRepresentations(command.representations()))
                 .map(contractRepository::save)
                 .map(ContractUtils::map)
-                .orElseThrow(() -> new ContractNotFound(form.id()));
+                .orElseThrow(() -> new ContractNotFound(command.id()));
     }
 
     Contract handleInternally(ContractEntity entity, ContractRepresentations representations) {
