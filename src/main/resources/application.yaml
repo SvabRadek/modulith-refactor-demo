@@ -1,5 +1,6 @@
 app:
   fixture:
+    enabled: true
     tags: [ "contract/basic", "fill/basic" ]
   contract:
     enable-cleanup: true
@@ -14,5 +15,14 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     show-sql: true
+  modulith:
+    runtime:
+      flyway-enabled: true
+  flyway:
+    enabled: true
+
+logging:
+  level:
+    org.flywaydb: DEBUG
