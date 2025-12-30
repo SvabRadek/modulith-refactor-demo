@@ -8,6 +8,7 @@ import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillCommand;
 import com.cocroachden.modulithrefactordemo.fill.usecase.RecordFillUseCase;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.*;
 import lombok.RequiredArgsConstructor;
+import org.jmolecules.architecture.layered.InterfaceLayer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@InterfaceLayer
 public class KafkaFillConsumer {
 
     private final RecordFillUseCase recordFillUseCase;

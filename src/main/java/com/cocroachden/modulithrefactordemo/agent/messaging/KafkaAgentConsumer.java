@@ -8,6 +8,7 @@ import com.cocroachden.modulithrefactordemo.agent.usecase.UpdateAgentHeartbeatUs
 import com.cocroachden.modulithrefactordemo.agent.usecase.UpdateHeartbeatCommand;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
 import lombok.AllArgsConstructor;
+import org.jmolecules.architecture.layered.InterfaceLayer;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@InterfaceLayer
 public class KafkaAgentConsumer {
 
     private final RegisterAgentUseCase registerAgentUseCase;
