@@ -22,7 +22,8 @@ public class CreateAccountUseCase {
         var newAccount = AccountEntity.create(
                 accountId,
                 command.name(),
-                command.tradingEnvironment()
+                command.tradingEnvironment(),
+                command.executionId()
         );
         var saved = accountRepository.save(newAccount);
         return AccountUtils.map(saved);

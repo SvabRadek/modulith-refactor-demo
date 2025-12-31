@@ -2,6 +2,7 @@ package com.cocroachden.modulithrefactordemo.account.repository;
 
 import com.cocroachden.modulithrefactordemo.account.AccountId;
 import com.cocroachden.modulithrefactordemo.account.AccountName;
+import com.cocroachden.modulithrefactordemo.account.ExecutionId;
 import com.cocroachden.modulithrefactordemo.account.event.AccountCreated;
 import com.cocroachden.modulithrefactordemo.account.utils.AccountUtils;
 import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnvironment;
@@ -32,14 +33,24 @@ public class AccountEntity extends AbstractEntity<AccountId> {
     @Enumerated(EnumType.STRING)
     private TradingEnvironment tradingEnvironment;
 
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "execution_id"))
+    private ExecutionId executionId;
+
     private AccountEntity(AccountId id) {
         this.id = id;
     }
 
-    public static AccountEntity create(AccountId id, AccountName name, TradingEnvironment tradingEnvironment) {
+    public static AccountEntity create(
+            AccountId id,
+            AccountName name,
+            TradingEnvironment tradingEnvironment,
+            ExecutionId executionId
+    ) {
         var entity = new AccountEntity(id);
         entity.setName(name);
         entity.setTradingEnvironment(tradingEnvironment);
+        entity.setExecutionId(executionId);
         entity.registerEvent(new AccountCreated(AccountUtils.map(entity)));
         return entity;
     }

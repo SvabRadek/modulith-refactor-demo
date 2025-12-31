@@ -38,7 +38,8 @@ public class RecordFillUseCase {
                 .orElseGet(() -> createAccountUseCase.handle(
                         new CreateAccountCommand(
                                 command.accountName(),
-                                command.tradingEnvironment()
+                                command.tradingEnvironment(),
+                                null
                         )
                 ));
         var representations = new ContractRepresentations(command.representations());

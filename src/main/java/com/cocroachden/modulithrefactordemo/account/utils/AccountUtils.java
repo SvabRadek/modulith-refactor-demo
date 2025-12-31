@@ -8,7 +8,8 @@ public class AccountUtils {
         return new Account(
                 entity.getId(),
                 entity.getName(),
-                entity.getTradingEnvironment()
+                entity.getTradingEnvironment(),
+                entity.getExecutionId()
         );
     }
 }

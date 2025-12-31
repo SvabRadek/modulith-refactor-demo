@@ -34,11 +34,11 @@ public class FillFixture implements Fixture {
         log.info("Generating [BASIC] fill fixture...");
         var start = System.currentTimeMillis();
         var accounts = List.of(
-                new Account(AccountId.random(), new AccountName("A"), TradingEnvironment.SIM),
-                new Account(AccountId.random(), new AccountName("B"), TradingEnvironment.UAT),
-                new Account(AccountId.random(), new AccountName("C"), TradingEnvironment.LIVE),
-                new Account(AccountId.random(), new AccountName("D"), TradingEnvironment.UAT),
-                new Account(AccountId.random(), new AccountName("E"), TradingEnvironment.SIM)
+                new Account(AccountId.random(), new AccountName("A"), TradingEnvironment.SIM, null),
+                new Account(AccountId.random(), new AccountName("B"), TradingEnvironment.UAT, null),
+                new Account(AccountId.random(), new AccountName("C"), TradingEnvironment.LIVE, null),
+                new Account(AccountId.random(), new AccountName("D"), TradingEnvironment.UAT, null),
+                new Account(AccountId.random(), new AccountName("E"), TradingEnvironment.SIM, null)
         );
 
         for (int i = 0; i < FILL_COUNT; i++) {

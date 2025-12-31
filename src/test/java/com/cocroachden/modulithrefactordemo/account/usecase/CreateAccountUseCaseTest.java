@@ -31,7 +31,7 @@ class CreateAccountUseCaseTest {
 
     @Test
     void itCanCreateAccount(Scenario scenario) {
-        var form = new CreateAccountCommand(AccountName.of("MyAccount"), TradingEnvironment.SIM);
+        var form = new CreateAccountCommand(AccountName.of("MyAccount"), TradingEnvironment.SIM, null);
         scenario.stimulate(() -> createAccountUseCase.handle(form))
                 .forEventOfType(AccountCreated.class)
                 .toArriveAndVerify(event -> {
@@ -43,7 +43,7 @@ class CreateAccountUseCaseTest {
 
     @Test
     void itSavesAccountToDatabase(Scenario scenario) {
-        var form = new CreateAccountCommand(AccountName.of("PersistentAccount"), TradingEnvironment.UAT);
+        var form = new CreateAccountCommand(AccountName.of("PersistentAccount"), TradingEnvironment.UAT, null);
         scenario.stimulate(() -> createAccountUseCase.handle(form))
                 .forEventOfType(AccountCreated.class)
                 .toArriveAndVerify(event -> {
@@ -55,7 +55,7 @@ class CreateAccountUseCaseTest {
 
     @Test
     void itThrowsExceptionWhenAccountAlreadyExists() {
-        var form = new CreateAccountCommand(AccountName.of("DuplicateAccount"), TradingEnvironment.LIVE);
+        var form = new CreateAccountCommand(AccountName.of("DuplicateAccount"), TradingEnvironment.LIVE, null);
         createAccountUseCase.handle(form);
         assertThatThrownBy(() -> createAccountUseCase.handle(form))
                 .isInstanceOf(RuntimeException.class)
@@ -64,8 +64,8 @@ class CreateAccountUseCaseTest {
 
     @Test
     void itCanCreateAccountsWithDifferentEnvironments(Scenario scenario) {
-        var formSim = new CreateAccountCommand(AccountName.of("MultiEnvAccount"), TradingEnvironment.SIM);
-        var formUat = new CreateAccountCommand(AccountName.of("MultiEnvAccount"), TradingEnvironment.UAT);
+        var formSim = new CreateAccountCommand(AccountName.of("MultiEnvAccount"), TradingEnvironment.SIM, null);
+        var formUat = new CreateAccountCommand(AccountName.of("MultiEnvAccount"), TradingEnvironment.UAT, null);
         scenario.stimulate(() -> createAccountUseCase.handle(formSim))
                 .forEventOfType(AccountCreated.class)
                 .toArriveAndVerify(event -> {

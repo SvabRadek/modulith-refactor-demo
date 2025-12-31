@@ -66,7 +66,7 @@ class RecordFillUseCaseTest {
 
     @Test
     void itCanRecordFill(Scenario scenario) {
-        var account = createAccountUseCase.handle(new CreateAccountCommand(AccountName.of("TestAccount"), TradingEnvironment.SIM));
+        var account = createAccountUseCase.handle(new CreateAccountCommand(AccountName.of("TestAccount"), TradingEnvironment.SIM, null));
         var contract = createContractUseCase.handle(new CreateContractCommand(
                 new ContractRepresentations(Map.of("TT", "AAPL"))
         ));
@@ -120,7 +120,7 @@ class RecordFillUseCaseTest {
     @Test
     void itCreatesNewWhenContractNotFound(Scenario scenario) {
         var account = createAccountUseCase.handle(
-                new CreateAccountCommand(AccountName.of("TestAccount2"), TradingEnvironment.SIM)
+                new CreateAccountCommand(AccountName.of("TestAccount2"), TradingEnvironment.SIM, null)
         );
         var form = new RecordFillCommand(
                 new ExchangeTradeId(UUID.randomUUID().toString()),
@@ -140,7 +140,7 @@ class RecordFillUseCaseTest {
 
     @Test
     void itThrowsExceptionWhenDuplicateFill() {
-        var account = createAccountUseCase.handle(new CreateAccountCommand(AccountName.of("TestAccount3"), TradingEnvironment.LIVE));
+        var account = createAccountUseCase.handle(new CreateAccountCommand(AccountName.of("TestAccount3"), TradingEnvironment.LIVE, null));
         createContractUseCase.handle(new CreateContractCommand(
                 new ContractRepresentations(Map.of("symbol", "MSFT"))
         ));

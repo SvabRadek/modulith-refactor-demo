@@ -5,6 +5,7 @@ import com.cocroachden.modulithrefactordemo.infrastructure.domain.TradingEnviron
 public record Account(
         AccountId id,
         AccountName name,
-        TradingEnvironment tradingEnvironment
+        TradingEnvironment tradingEnvironment,
+        ExecutionId executionId
 ) {
 }
