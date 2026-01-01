@@ -22,10 +22,10 @@ class MergeContractUseCaseTest {
 
     @Test
     void itCanMergeContracts() {
-        var form1 = new MergeContractCommand(new ContractRepresentations(Map.of("format", "value")));
-        mergeContractUseCase.handle(form1);
-        var form2 = new MergeContractCommand(new ContractRepresentations(Map.of("format", "value", "format2", "value2")));
-        var mergedContract = mergeContractUseCase.handle(form2);
+        var mergeCommand = new MergeContractCommand(new ContractRepresentations(Map.of("format", "value")));
+        mergeContractUseCase.handle(mergeCommand);
+        var secondMergeCommand = new MergeContractCommand(new ContractRepresentations(Map.of("format", "value", "format2", "value2")));
+        var mergedContract = mergeContractUseCase.handle(secondMergeCommand);
 
         Assertions.assertThat(mergedContract.representations().getRaw())
                 .containsKeys("format", "format2");
@@ -34,11 +34,11 @@ class MergeContractUseCaseTest {
 
     @Test
     void itCanMergeOverwriteContracts() {
-        var form1 = new MergeContractCommand(new ContractRepresentations(Map.of("A", "A", "B", "B")));
-        var form2 = new MergeContractCommand(new ContractRepresentations(Map.of("A", "A", "B", "Z")));
-        mergeContractUseCase.handle(form1);
+        var mergeCommand = new MergeContractCommand(new ContractRepresentations(Map.of("A", "A", "B", "B")));
+        var secondMergeCommand = new MergeContractCommand(new ContractRepresentations(Map.of("A", "A", "B", "Z")));
+        mergeContractUseCase.handle(mergeCommand);
         Assertions.assertThat(contractRepository.findByRepresentation("B", "B")).isPresent();
-        mergeContractUseCase.handle(form2);
+        mergeContractUseCase.handle(secondMergeCommand);
         Assertions.assertThat(contractRepository.findByRepresentation("B", "B")).isEmpty();
     }
 

@@ -34,8 +34,8 @@ class CreateContractUseCaseTest {
 
     @Test
     void itCanCreateContract(Scenario scenario) {
-        var form = new CreateContractCommand(new ContractRepresentations(Map.of("format", "value")));
-        scenario.stimulate(() -> createContractUseCase.handle(form))
+        var command = new CreateContractCommand(new ContractRepresentations(Map.of("format", "value")));
+        scenario.stimulate(() -> createContractUseCase.handle(command))
                 .forEventOfType(ContractCreated.class)
                 .toArriveAndVerify(event -> {
                     assertThat(event.getContract().representations().getRaw()).containsEntry("format", "value");
@@ -46,8 +46,8 @@ class CreateContractUseCaseTest {
     @Test
     @Transactional
     void itSavesContractToDatabase() {
-        var form = new CreateContractCommand(new ContractRepresentations(Map.of("symbol", "AAPL")));
-        var contract = createContractUseCase.handle(form);
+        var command = new CreateContractCommand(new ContractRepresentations(Map.of("symbol", "AAPL")));
+        var contract = createContractUseCase.handle(command);
 
         var contractFromDb = contractRepository.findById(contract.id());
         assertThat(contractFromDb).isPresent();
@@ -58,12 +58,12 @@ class CreateContractUseCaseTest {
     @Test
     @Transactional
     void itCanCreateContractWithMultipleRepresentations(Scenario scenario) {
-        var form = new CreateContractCommand(new ContractRepresentations(Map.of(
+        var command = new CreateContractCommand(new ContractRepresentations(Map.of(
                 "symbol", "TSLA",
                 "exchange", "NASDAQ",
                 "type", "STOCK"
         )));
-        scenario.stimulate(() -> createContractUseCase.handle(form))
+        scenario.stimulate(() -> createContractUseCase.handle(command))
                 .forEventOfType(ContractCreated.class)
                 .toArriveAndVerify(event -> {
                     var contractFromDb = contractRepository.findById(event.getContract().id());

@@ -10,13 +10,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.modulith.test.Scenario;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.time.Clock;
 import java.time.InstantSource;
 
 @ApplicationModuleTest
-@Import(RegisterAgentUseCaseTest.RegisterAgentUseCaseTestConfig.class)
 class RegisterAgentUseCaseTest {
+
+    @MockitoBean
+    private InstantSource instantSource;
 
     @Autowired
     private RegisterAgentUseCase registerAgentUseCase;
@@ -30,13 +33,4 @@ class RegisterAgentUseCaseTest {
                 }).forEventOfType(AgentRegistered.class)
                 .toArrive();
     }
-
-    @TestConfiguration
-    static class RegisterAgentUseCaseTestConfig {
-        @Bean
-        public InstantSource instantSource() {
-            return Clock.systemUTC();
-        }
-    }
-
 }

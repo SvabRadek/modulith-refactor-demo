@@ -71,7 +71,7 @@ class RecordFillUseCaseTest {
                 new ContractRepresentations(Map.of("TT", "AAPL"))
         ));
 
-        var form = new RecordFillCommand(
+        var command = new RecordFillCommand(
                 new ExchangeTradeId(UUID.randomUUID().toString()),
                 new ExchangeOrderId(UUID.randomUUID().toString()),
                 account.name(),
@@ -81,7 +81,7 @@ class RecordFillUseCaseTest {
                 new Qty(10L)
         );
 
-        scenario.stimulate(() -> recordFillUseCase.handle(form))
+        scenario.stimulate(() -> recordFillUseCase.handle(command))
                 .forEventOfType(FillRecorded.class)
                 .toArriveAndVerify(event -> {
                     assertThat(event.fill()).isNotNull();
@@ -99,7 +99,7 @@ class RecordFillUseCaseTest {
                 new ContractRepresentations(Map.of("symbol", "TSLA"))
         ));
 
-        var form = new RecordFillCommand(
+        var command = new RecordFillCommand(
                 new ExchangeTradeId(UUID.randomUUID().toString()),
                 new ExchangeOrderId(UUID.randomUUID().toString()),
                 AccountName.of("AutoCreatedAccount"),
@@ -109,11 +109,11 @@ class RecordFillUseCaseTest {
                 new Qty(5L)
         );
 
-        var recordedFill = recordFillUseCase.handle(form);
+        var recordedFill = recordFillUseCase.handle(command);
 
         assertThat(recordedFill).isNotNull();
         assertThat(accountRepository.findByNameAndTradingEnvironment(
-                form.accountName(), form.tradingEnvironment()
+                command.accountName(), command.tradingEnvironment()
         )).isPresent();
     }
 
@@ -122,7 +122,7 @@ class RecordFillUseCaseTest {
         var account = createAccountUseCase.handle(
                 new CreateAccountCommand(AccountName.of("TestAccount2"), TradingEnvironment.SIM, null)
         );
-        var form = new RecordFillCommand(
+        var command = new RecordFillCommand(
                 new ExchangeTradeId(UUID.randomUUID().toString()),
                 new ExchangeOrderId(UUID.randomUUID().toString()),
                 account.name(),
@@ -131,7 +131,7 @@ class RecordFillUseCaseTest {
                 new Price(10000L),
                 new Qty(1L)
         );
-        scenario.stimulate(() -> recordFillUseCase.handle(form))
+        scenario.stimulate(() -> recordFillUseCase.handle(command))
                 .forEventOfType(ContractCreated.class)
                 .toArriveAndVerify(e -> {
                     assertThat(e.getContract().representations().getRaw()).containsEntry("symbol", "NONEXISTENT");
@@ -148,7 +148,7 @@ class RecordFillUseCaseTest {
         var tradeId = new ExchangeTradeId(UUID.randomUUID().toString());
         var orderId = new ExchangeOrderId(UUID.randomUUID().toString());
 
-        var form = new RecordFillCommand(
+        var command = new RecordFillCommand(
                 tradeId,
                 orderId,
                 account.name(),
@@ -158,9 +158,9 @@ class RecordFillUseCaseTest {
                 new Qty(20L)
         );
 
-        recordFillUseCase.handle(form);
+        recordFillUseCase.handle(command);
 
-        assertThatThrownBy(() -> recordFillUseCase.handle(form))
+        assertThatThrownBy(() -> recordFillUseCase.handle(command))
                 .isInstanceOf(FillAlreadyExistsException.class);
     }
 }

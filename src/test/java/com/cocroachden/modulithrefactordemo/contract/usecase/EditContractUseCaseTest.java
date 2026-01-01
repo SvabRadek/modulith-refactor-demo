@@ -36,14 +36,14 @@ class EditContractUseCaseTest {
 
     @Test
     void itCanEditContract() {
-        var createForm = new CreateContractCommand(new ContractRepresentations(Map.of("symbol", "AAPL")));
-        var contract = createContractUseCase.handle(createForm);
+        var createCommand = new CreateContractCommand(new ContractRepresentations(Map.of("symbol", "AAPL")));
+        var contract = createContractUseCase.handle(createCommand);
 
-        var editForm = new EditContractCommand(
+        var editCommand = new EditContractCommand(
                 contract.id(),
                 new ContractRepresentations(Map.of("symbol", "TSLA", "exchange", "NASDAQ"))
         );
-        var editedContract = editContractUseCase.handle(editForm);
+        var editedContract = editContractUseCase.handle(editCommand);
 
         assertThat(editedContract.id()).isEqualTo(contract.id());
         assertThat(editedContract.representations().getRaw())
@@ -55,14 +55,14 @@ class EditContractUseCaseTest {
     @Test
     @Transactional
     void itUpdatesContractInDatabase() {
-        var createForm = new CreateContractCommand(new ContractRepresentations(Map.of("type", "STOCK")));
-        var contract = createContractUseCase.handle(createForm);
+        var createCommand = new CreateContractCommand(new ContractRepresentations(Map.of("type", "STOCK")));
+        var contract = createContractUseCase.handle(createCommand);
 
-        var editForm = new EditContractCommand(
+        var editCommand = new EditContractCommand(
                 contract.id(),
                 new ContractRepresentations(Map.of("type", "OPTION", "strike", "150"))
         );
-        editContractUseCase.handle(editForm);
+        editContractUseCase.handle(editCommand);
 
         var savedContract = contractRepository.findById(contract.id());
         assertThat(savedContract).isPresent();
@@ -84,18 +84,18 @@ class EditContractUseCaseTest {
 
     @Test
     void itCanReplaceAllRepresentations() {
-        var createForm = new CreateContractCommand(new ContractRepresentations(Map.of(
+        var createCommand = new CreateContractCommand(new ContractRepresentations(Map.of(
                 "symbol", "AMD",
                 "exchange", "NASDAQ",
                 "type", "STOCK"
         )));
-        var contract = createContractUseCase.handle(createForm);
+        var contract = createContractUseCase.handle(createCommand);
 
-        var editForm = new EditContractCommand(
+        var editCommand = new EditContractCommand(
                 contract.id(),
                 new ContractRepresentations(Map.of("newField", "newValue"))
         );
-        var editedContract = editContractUseCase.handle(editForm);
+        var editedContract = editContractUseCase.handle(editCommand);
 
         assertThat(editedContract.representations().getRaw())
                 .hasSize(1)
